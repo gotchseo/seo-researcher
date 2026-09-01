@@ -1,6 +1,7 @@
 import { McpServer } from "@modelcontextprotocol/server";
 import { createMcpHandler } from "agents/mcp/server";
 import { z } from "zod";
+import { EMBEDDED_SITE } from "./embedded-site";
 
 const PRODUCT = "seo_researcher";
 const API_PREFIX = "/v1/research";
@@ -33,6 +34,21 @@ function json(data: unknown, init: ResponseInit = {}): Response {
   headers.set("content-type", "application/json; charset=utf-8");
   headers.set("cache-control", "no-store");
   return new Response(JSON.stringify(data), { ...init, headers });
+}
+
+function embeddedSiteResponse(url: URL): Response | null {
+  const pathname = url.pathname === "/" ? "/index.html" : url.pathname;
+  const candidates = [pathname, `${pathname.replace(/\/$/, "")}/index.html`];
+  const asset = candidates.map((candidate) => EMBEDDED_SITE[candidate]).find(Boolean);
+  if (!asset) return null;
+  const headers = new Headers({
+    "content-type": asset.contentType,
+    "x-content-type-options": "nosniff",
+    "referrer-policy": "strict-origin-when-cross-origin",
+    "permissions-policy": "camera=(), microphone=(), geolocation=()",
+  });
+  headers.set("cache-control", asset.contentType.startsWith("text/html") ? "public, max-age=300" : "public, max-age=31536000, immutable");
+  return new Response(asset.body, { headers });
 }
 
 function corsHeaders(request: Request): Headers {
@@ -83,7 +99,22 @@ function analyticsPoint(env: Env, event: string, input: {
 }): void {
   const url = new URL(input.request.url);
   const attribution = input.attribution || {};
-  env.SEO_ANALYTICS.writeDataPoint({
+  const dataset = (env as Env & { SEO_ANALYTICS?: AnalyticsEngineDataset }).SEO_ANALYTICS;
+  if (!dataset) {
+    logEvent("edge_analytics_fallback", {
+      analytics_event: event,
+      request_id: input.requestId,
+      host: url.hostname,
+      path: url.pathname,
+      status: input.status || 0,
+      success: input.success === undefined ? null : input.success,
+      latency_ms: input.latencyMs || 0,
+      operation: input.operation || "",
+      identity_hash: input.identityHash || "anonymous",
+    });
+    return;
+  }
+  dataset.writeDataPoint({
     indexes: [event],
     blobs: [
       PRODUCT,
@@ -480,7 +511,7 @@ export default {
       if (url.hostname === new URL(env.MCP_ORIGIN).hostname) {
         return json({ name: "SEO Researcher MCP", endpoint: publicMcpUrl(env), authentication: "OAuth 2.0 or bearer API key" });
       }
-      return env.ASSETS.fetch(request);
+      return embeddedSiteResponse(url) || json({ error: { code: "not_found", message: "Page not found." } }, { status: 404 });
     } catch (error) {
       const id = requestId(request);
       console.error(JSON.stringify({ event: "edge_request_failed", request_id: id, path: url.pathname, error: error instanceof Error ? error.message : String(error) }));

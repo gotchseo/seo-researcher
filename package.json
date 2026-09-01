@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "astro dev",
     "dev:worker": "npm run build && wrangler dev",
-    "build": "astro build",
+    "build": "astro build && node scripts/embed-site.mjs",
     "check": "astro check && tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
