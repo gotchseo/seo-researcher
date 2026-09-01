@@ -1,0 +1,71 @@
+openapi: 3.1.0
+info:
+  title: SEO Researcher API
+  version: 1.0.0
+  description: Live SEO and AI-citation research for AI agents.
+servers:
+  - url: https://api.seoresearcher.ai/v1
+security:
+  - bearerAuth: []
+paths:
+  /research:
+    post:
+      operationId: startResearch
+      summary: Start an SEO research job
+      parameters:
+        - in: header
+          name: Idempotency-Key
+          schema: { type: string, maxLength: 180 }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [topic]
+              properties:
+                topic: { type: string, maxLength: 500 }
+                depth: { type: string, enum: [standard, deep], default: standard }
+                country: { type: string }
+                language: { type: string, default: en }
+                location: { type: string }
+                brand_domain: { type: string }
+                target_url: { type: string, format: uri }
+      responses:
+        "202": { description: Research accepted }
+    get:
+      operationId: listResearch
+      summary: List research jobs
+      responses:
+        "200": { description: Research job page }
+  /research/{job_id}:
+    get:
+      operationId: getResearchStatus
+      summary: Get research status
+      parameters:
+        - $ref: "#/components/parameters/JobId"
+      responses:
+        "200": { description: Research status }
+  /research/{job_id}/result:
+    get:
+      operationId: getResearchResult
+      summary: Get a completed research packet
+      parameters:
+        - $ref: "#/components/parameters/JobId"
+        - in: query
+          name: view
+          schema: { type: string, enum: [summary, full, evidence], default: full }
+      responses:
+        "200": { description: Versioned research packet }
+        "409": { description: Research is not complete }
+components:
+  parameters:
+    JobId:
+      in: path
+      name: job_id
+      required: true
+      schema: { type: string, format: uuid }
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer

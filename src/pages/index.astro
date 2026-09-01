@@ -1,0 +1,314 @@
+---
+import "../styles/global.css";
+
+const title = "SEO Researcher — SEO research for Claude, Codex, Cursor, and AI agents";
+const description = "Research live Google competitors, topics, entities, search questions, content gaps, and AI citations before your AI agent writes.";
+const canonical = "https://seoresearcher.ai/";
+const faq = [
+  { q: "Is SEO Researcher another AI writer?", a: "No. It is the research layer for the AI agent you already use. You keep writing in Claude, Codex, Cursor, or your own agent." },
+  { q: "What does the research include?", a: "Live Google competitors, competitor coverage, topics, entities, search questions, AI citations, source URLs, content gaps, and recommended areas to cover." },
+  { q: "Which tools does it work with?", a: "Any MCP-compatible client can connect. The REST API works in custom applications and automated workflows." },
+  { q: "How does the trial work?", a: "The 14-day trial starts when you submit your card. Cancel before it ends and you will not be charged. After the trial, the plan is $49 per month or $490 per year." },
+  { q: "Do I need to count credits?", a: "No. Use the product normally and make it part of your workflow. The plan has fair usage safeguards, but there is no credit counter to manage." }
+];
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "SEO Researcher",
+    url: canonical,
+    description
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "SEO Researcher",
+    url: canonical,
+    logo: "https://seoresearcher.ai/favicon.svg"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "SEO Researcher",
+    applicationCategory: "BusinessApplication",
+    operatingSystem: "Web",
+    offers: {
+      "@type": "Offer",
+      price: "49",
+      priceCurrency: "USD",
+      description: "14-day card-required trial, then $49 per month"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faq.map(({ q, a }) => ({
+      "@type": "Question",
+      name: q,
+      acceptedAnswer: { "@type": "Answer", text: a }
+    }))
+  }
+];
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#f6f4eb" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content="https://seoresearcher.ai/og.svg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="https://seoresearcher.ai/og.svg" />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header shell">
+      <a class="brand" href="/" aria-label="SEO Researcher home">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>SEO Researcher</span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="#research">Research</a>
+        <a href="#pricing">Pricing</a>
+        <a class="button compact" href="/start" data-event="trial_cta_clicked" data-location="header">Start free trial</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero shell" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow">SEO research for AI agents</p>
+          <h1 id="hero-title">Give your AI agent the SEO research it’s missing.</h1>
+          <p class="lede">Research live Google competitors, topics, content gaps, and AI citations before Claude—or any agent—writes your content.</p>
+          <div class="hero-actions">
+            <a class="button" href="/start" data-event="trial_cta_clicked" data-location="hero">Start your 14-day trial <span aria-hidden="true">→</span></a>
+            <span class="trial-note">$49/month after trial. Card required. Cancel anytime.</span>
+          </div>
+          <div class="works-with" aria-label="Compatible tools">
+            <span>Works with</span>
+            <ul>
+              <li>Claude</li><li>Codex</li><li>Cursor</li><li>OpenClaw</li><li>Any MCP client</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="packet card" aria-label="Example SEO research packet">
+          <div class="packet-top"><span class="status-dot"></span><span>Research complete</span><code>best CRM software</code></div>
+          <div class="packet-summary">
+            <strong>32</strong><span>sources analyzed</span>
+            <strong>47</strong><span>entities found</span>
+            <strong>9</strong><span>content gaps</span>
+          </div>
+          <div class="packet-row"><span>01</span><div><strong>Google competitors</strong><small>HubSpot, Salesforce, Zapier + 7 more</small></div></div>
+          <div class="packet-row"><span>02</span><div><strong>Topics to cover</strong><small>Pipeline management, automation, reporting</small></div></div>
+          <div class="packet-row accent"><span>03</span><div><strong>Best opportunity</strong><small>Competitors miss migration time and hidden costs</small></div></div>
+          <div class="packet-command"><span aria-hidden="true">›</span> Use this research to create the outline.</div>
+        </div>
+      </section>
+
+      <section class="contrast">
+        <div class="shell contrast-grid">
+          <div>
+            <p class="eyebrow">The missing layer</p>
+            <h2>Claude can write. It is not an SEO research system.</h2>
+          </div>
+          <p>Web search can find pages. SEO Researcher analyzes the pages that actually rank, what they consistently cover, which entities matter, what AI systems cite, and where the useful gaps are.</p>
+        </div>
+      </section>
+
+      <section id="research" class="section shell" aria-labelledby="research-title">
+        <p class="eyebrow">Research before you write</p>
+        <h2 id="research-title">One request. A complete research packet.</h2>
+        <p class="section-lede">Give your agent evidence it can use—not another generic article draft.</p>
+        <div class="research-grid">
+          <article class="card"><span>01</span><h3>Google competitors</h3><p>See which pages actually rank for the target search and what is on each page.</p></article>
+          <article class="card"><span>02</span><h3>Topics</h3><p>Understand what top-ranking content consistently covers and how it structures the subject.</p></article>
+          <article class="card"><span>03</span><h3>Entities</h3><p>Find the people, brands, products, concepts, and terms that matter to the topic.</p></article>
+          <article class="card"><span>04</span><h3>AI citations</h3><p>See source URLs cited across AI search results, with platform and source provenance.</p></article>
+          <article class="card"><span>05</span><h3>Content gaps</h3><p>Find useful questions, evidence, and subtopics that competing pages have missed.</p></article>
+          <article class="card"><span>06</span><h3>Search questions</h3><p>Discover the questions people ask and carry the relevant ones into the content plan.</p></article>
+        </div>
+      </section>
+
+      <section class="workflow">
+        <div class="shell">
+          <p class="eyebrow">No new content workflow</p>
+          <h2>Connect once. Keep working where you already work.</h2>
+          <ol>
+            <li><span>1</span><div><strong>Connect the MCP</strong><p>Authorize SEO Researcher in Claude, Codex, Cursor, or another MCP client.</p></div></li>
+            <li><span>2</span><div><strong>Ask for research</strong><p>“Research ‘best CRM software’ before we create this article.”</p></div></li>
+            <li><span>3</span><div><strong>Write with evidence</strong><p>Your agent receives competitors, topics, entities, questions, citations, gaps, and source URLs.</p></div></li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="section shell agent-example" aria-labelledby="ask-title">
+        <div>
+          <p class="eyebrow">Built for agents</p>
+          <h2 id="ask-title">Ask your agent to research anything.</h2>
+          <p class="section-lede">The result is structured for an agent to reason over, cite, and use in its next step.</p>
+        </div>
+        <div class="prompt-card card">
+          <span class="prompt-label">You</span>
+          <p>Research the topic “best CRM software” before we create this article.</p>
+          <button type="button" class="copy-button" data-copy-prompt="Research the topic ‘best CRM software’ before we create this article." data-event="example_prompt_copied">Copy prompt</button>
+        </div>
+      </section>
+
+      <section id="pricing" class="pricing shell" aria-labelledby="pricing-title">
+        <div class="pricing-copy">
+          <p class="eyebrow">Simple pricing</p>
+          <h2 id="pricing-title">Use it enough to make it infrastructure.</h2>
+          <p>There is no credit counter to ration. Connect it to your agentic workflow and use it whenever research should happen before writing.</p>
+        </div>
+        <div class="price-card card">
+          <span class="plan-name">SEO Researcher</span>
+          <div class="price"><strong>$49</strong><span>/month</span></div>
+          <p>or $490/year—two months free</p>
+          <ul>
+            <li>14-day free trial</li>
+            <li>Card required to start</li>
+            <li>Full Google and AI citation research</li>
+            <li>MCP and REST API access</li>
+            <li>Fair usage safeguards, no credit counter</li>
+          </ul>
+          <a class="button" href="/start" data-event="trial_cta_clicked" data-location="pricing">Start your 14-day trial <span aria-hidden="true">→</span></a>
+          <small>Cancel before the trial ends and you will not be charged.</small>
+        </div>
+      </section>
+
+      <section class="section shell faq" aria-labelledby="faq-title">
+        <p class="eyebrow">Questions</p>
+        <h2 id="faq-title">What you need to know.</h2>
+        <div class="faq-list">
+          {faq.map(({ q, a }) => <details class="card"><summary>{q}</summary><p>{a}</p></details>)}
+        </div>
+      </section>
+
+      <section class="final-cta">
+        <div class="shell">
+          <p class="eyebrow">Your AI can write</p>
+          <h2>Give it better research.</h2>
+          <p>Connect your agent to live Google competitors, topics, entities, content gaps, search questions, and AI citations.</p>
+          <a class="button" href="/start" data-event="trial_cta_clicked" data-location="final">Start your 14-day trial <span aria-hidden="true">→</span></a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer shell">
+      <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"></span><span>SEO Researcher</span></a>
+      <p>SEO research for AI agents.</p>
+      <nav aria-label="Footer navigation"><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="https://docs.seoresearcher.ai">Docs</a></nav>
+    </footer>
+    <script is:inline src="/analytics.js" defer></script>
+  </body>
+</html>
+
+<style>
+  .site-header { min-height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+  .brand { display: inline-flex; align-items: center; gap: .7rem; font-weight: 900; text-decoration: none; letter-spacing: -.025em; }
+  .brand-mark { width: 1.25rem; height: 1.25rem; border: 3px solid var(--ink); border-radius: 50%; position: relative; background: var(--acid); }
+  .brand-mark::after { content: ""; position: absolute; width: .55rem; height: 3px; background: var(--ink); right: -.45rem; bottom: -.2rem; rotate: 45deg; border-radius: 10px; }
+  .site-header nav, .site-footer nav { display: flex; align-items: center; gap: 1.25rem; }
+  .site-header nav > a:not(.button), .site-footer nav a { color: var(--muted); text-decoration: none; font-size: .92rem; font-weight: 650; }
+  .compact { min-height: 40px; padding: .55rem .85rem; box-shadow: 3px 3px 0 var(--ink); }
+  .hero { display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(2rem, 6vw, 6rem); align-items: center; padding-block: clamp(4.5rem, 10vw, 8rem); }
+  h1, h2 { margin: 0; letter-spacing: -.055em; line-height: .98; text-wrap: balance; }
+  h1 { max-width: 780px; margin-top: 1.15rem; font-size: clamp(3rem, 7.3vw, 6.35rem); }
+  h2 { font-size: clamp(2.35rem, 5vw, 4.5rem); }
+  .lede { max-width: 660px; margin: 1.6rem 0 0; color: var(--muted); font-size: clamp(1.12rem, 2vw, 1.35rem); }
+  .hero-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 1rem 1.25rem; margin-top: 2rem; }
+  .trial-note { max-width: 235px; color: var(--muted); font-size: .82rem; }
+  .works-with { margin-top: 2.7rem; padding-top: 1.25rem; border-top: 1px solid var(--line); color: var(--muted); font-size: .82rem; }
+  .works-with ul { display: flex; gap: .55rem; flex-wrap: wrap; padding: 0; margin: .7rem 0 0; list-style: none; }
+  .works-with li { border: 1px solid var(--line); background: rgba(255,255,255,.55); padding: .32rem .58rem; border-radius: 999px; color: var(--ink); font-weight: 700; }
+  .packet { padding: 1rem; box-shadow: 10px 10px 0 var(--ink); transform: rotate(1deg); }
+  .packet-top { display: grid; grid-template-columns: auto 1fr; gap: .3rem .55rem; align-items: center; padding: .35rem .35rem 1rem; font-size: .76rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+  .packet-top code { grid-column: 1 / -1; padding: .7rem .8rem; margin-top: .4rem; background: var(--ink); color: var(--acid); border-radius: .45rem; font-size: .9rem; text-transform: none; letter-spacing: 0; }
+  .status-dot { width: .55rem; height: .55rem; border-radius: 50%; background: #669800; box-shadow: 0 0 0 4px #e8f9bc; }
+  .packet-summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; padding: 1rem 0; border-block: 1px solid var(--line); text-align: center; }
+  .packet-summary strong { font-size: 1.65rem; line-height: 1; }
+  .packet-summary span { display: block; color: var(--muted); font-size: .67rem; }
+  .packet-row { display: grid; grid-template-columns: 2rem 1fr; gap: .8rem; align-items: center; padding: 1rem .35rem; border-bottom: 1px solid var(--line); }
+  .packet-row > span { color: #777c70; font: 700 .72rem ui-monospace, monospace; }
+  .packet-row strong, .packet-row small { display: block; }
+  .packet-row small { color: var(--muted); margin-top: .15rem; }
+  .packet-row.accent { margin: .5rem -.25rem 0; padding-inline: .6rem; background: #efffc5; border-radius: .5rem; border: 1px solid #badc58; }
+  .packet-command { margin-top: 1rem; padding: .8rem; border: 1px dashed #969c8c; border-radius: .5rem; font: 650 .78rem ui-monospace, monospace; }
+  .contrast { background: var(--ink); color: var(--paper); padding-block: clamp(4rem, 8vw, 7rem); }
+  .contrast .eyebrow { color: var(--acid); }
+  .contrast .eyebrow::before { background: var(--acid); }
+  .contrast-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 7vw, 7rem); align-items: end; }
+  .contrast-grid p:last-child { max-width: 590px; margin: 0; color: #c8cbbf; font-size: 1.2rem; }
+  .contrast h2 { margin-top: 1rem; }
+  .section { padding-block: clamp(4.5rem, 9vw, 8rem); }
+  .section h2, .pricing h2 { max-width: 800px; margin-top: 1rem; }
+  .section-lede { max-width: 650px; color: var(--muted); font-size: 1.15rem; }
+  .research-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 3rem; }
+  .research-grid article { min-height: 235px; padding: 1.4rem; }
+  .research-grid article > span { font: 800 .75rem ui-monospace, monospace; color: #698900; }
+  .research-grid h3 { margin: 3.2rem 0 .5rem; font-size: 1.35rem; letter-spacing: -.025em; }
+  .research-grid p { margin: 0; color: var(--muted); }
+  .workflow { padding-block: clamp(4.5rem, 9vw, 8rem); background: var(--paper-2); border-block: 1px solid var(--line); }
+  .workflow h2 { max-width: 810px; margin-top: 1rem; }
+  .workflow ol { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; padding: 0; margin: 3rem 0 0; list-style: none; counter-reset: steps; }
+  .workflow li { display: flex; gap: 1rem; padding-top: 1.2rem; border-top: 2px solid var(--ink); }
+  .workflow li > span { display: grid; place-items: center; flex: 0 0 2rem; height: 2rem; border-radius: 50%; background: var(--acid); border: 1px solid var(--ink); font-weight: 900; }
+  .workflow strong { font-size: 1.1rem; }
+  .workflow p { color: var(--muted); margin: .4rem 0 0; }
+  .agent-example { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 7vw, 7rem); align-items: center; }
+  .prompt-card { padding: 1.5rem; box-shadow: 7px 7px 0 var(--ink); }
+  .prompt-label { font-size: .72rem; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; font-weight: 800; }
+  .prompt-card p { font: 700 1.15rem/1.45 ui-monospace, SFMono-Regular, Menlo, monospace; }
+  .copy-button { border: 0; background: transparent; padding: .4rem 0; color: #4c6800; font-weight: 800; cursor: pointer; text-decoration: underline; text-underline-offset: .2rem; }
+  .pricing { display: grid; grid-template-columns: 1fr minmax(320px, 460px); gap: clamp(2rem, 8vw, 8rem); align-items: center; padding-block: clamp(4.5rem, 9vw, 8rem); }
+  .pricing-copy > p:last-child { max-width: 600px; color: var(--muted); font-size: 1.12rem; }
+  .price-card { padding: 1.7rem; border-color: var(--ink); box-shadow: 8px 8px 0 var(--ink); }
+  .plan-name { display: block; font-weight: 900; }
+  .price { display: flex; align-items: end; gap: .45rem; margin-top: 1rem; }
+  .price strong { font-size: 4rem; line-height: .9; letter-spacing: -.06em; }
+  .price span { color: var(--muted); }
+  .price-card > p { color: var(--muted); margin: .7rem 0 1.4rem; }
+  .price-card ul { display: grid; gap: .65rem; padding: 1.3rem 0; margin: 0; border-block: 1px solid var(--line); list-style: none; }
+  .price-card li::before { content: "✓"; margin-right: .65rem; color: #557600; font-weight: 900; }
+  .price-card .button { width: 100%; margin-top: 1.4rem; }
+  .price-card small { display: block; margin-top: 1rem; color: var(--muted); text-align: center; }
+  .faq h2 { margin-bottom: 2.5rem; }
+  .faq-list { display: grid; gap: .7rem; max-width: 860px; }
+  .faq details { padding: 1rem 1.15rem; }
+  .faq summary { cursor: pointer; font-weight: 800; }
+  .faq details p { margin: .8rem 0 .25rem; color: var(--muted); }
+  .final-cta { padding-block: clamp(5rem, 10vw, 9rem); background: var(--acid); text-align: center; border-block: 1px solid var(--ink); }
+  .final-cta .eyebrow::before { display: none; }
+  .final-cta p:not(.eyebrow) { max-width: 660px; margin: 1.2rem auto 1.7rem; font-size: 1.15rem; }
+  .final-cta .button { background: var(--ink); color: var(--white); box-shadow: 4px 4px 0 #637415; }
+  .site-footer { min-height: 150px; display: grid; grid-template-columns: 1fr 1fr auto; gap: 1.5rem; align-items: center; color: var(--muted); font-size: .9rem; }
+
+  @media (max-width: 850px) {
+    .site-header nav > a:not(.button) { display: none; }
+    .hero, .contrast-grid, .agent-example, .pricing { grid-template-columns: 1fr; }
+    .packet { transform: none; }
+    .research-grid, .workflow ol { grid-template-columns: 1fr 1fr; }
+    .site-footer { grid-template-columns: 1fr; padding-block: 2rem; }
+  }
+  @media (max-width: 560px) {
+    .shell { width: min(100% - 1.2rem, 1120px); }
+    .site-header { min-height: 68px; }
+    .site-header .compact { font-size: .8rem; padding-inline: .7rem; }
+    h1 { font-size: clamp(2.65rem, 14vw, 4rem); }
+    .research-grid, .workflow ol { grid-template-columns: 1fr; }
+    .packet-summary { grid-template-columns: repeat(3, 1fr); }
+    .site-footer nav { flex-wrap: wrap; }
+  }
+</style>

@@ -1,0 +1,26 @@
+{
+  "name": "seo-researcher",
+  "version": "0.1.0",
+  "description": "Live Google competitor, topic, entity, question, content-gap, and AI-citation research for Codex.",
+  "author": {
+    "name": "Rankability",
+    "url": "https://seoresearcher.ai"
+  },
+  "homepage": "https://seoresearcher.ai",
+  "repository": "https://github.com/gotchseo/seo-researcher",
+  "license": "MIT",
+  "interface": {
+    "displayName": "SEO Researcher",
+    "shortDescription": "Research search results before Codex writes",
+    "longDescription": "Give Codex live research from Google competitors and AI search: topics, entities, search questions, source URLs, competitor coverage, content gaps, and AI citations.",
+    "developerName": "Rankability",
+    "category": "Developer Tools",
+    "capabilities": ["Interactive", "Read"],
+    "websiteURL": "https://seoresearcher.ai",
+    "privacyPolicyURL": "https://seoresearcher.ai/privacy",
+    "termsOfServiceURL": "https://seoresearcher.ai/terms",
+    "defaultPrompt": ["Research my target topic before we plan or write the content."],
+    "brandColor": "#17251E"
+  },
+  "mcpServers": "./.mcp.json"
+}

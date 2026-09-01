@@ -1,0 +1,18 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.gotchseo/seo-researcher",
+  "title": "SEO Researcher",
+  "description": "Live Google competitor, topic, entity, question, content-gap, and AI-citation research for AI agents.",
+  "repository": {
+    "url": "https://github.com/gotchseo/seo-researcher",
+    "source": "github"
+  },
+  "version": "0.1.0",
+  "websiteUrl": "https://seoresearcher.ai",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://mcp.seoresearcher.ai/mcp"
+    }
+  ]
+}

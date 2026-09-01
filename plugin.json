@@ -1,0 +1,16 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "seo-researcher",
+  "description": "Research Google competitors, topics, entities, questions, content gaps, and AI citations before an agent writes.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Rankability",
+    "url": "https://seoresearcher.ai"
+  },
+  "homepage": "https://seoresearcher.ai",
+  "repository": "https://github.com/gotchseo/seo-researcher",
+  "license": "MIT",
+  "logo": "public/favicon.svg",
+  "skills": "./skills/",
+  "mcpServers": "./mcp.json"
+}
