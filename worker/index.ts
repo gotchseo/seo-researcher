@@ -84,6 +84,22 @@ function requestId(request: Request): string {
   return request.headers.get("cf-ray") || request.headers.get("x-request-id") || crypto.randomUUID();
 }
 
+function analyticsDimension(value: unknown, maxLength = 160): string {
+  return String(value ?? "").replace(/[\r\n\t]+/g, " ").trim().slice(0, maxLength);
+}
+
+function referrerClass(request: Request, explicitReferrer: unknown): string {
+  const raw = analyticsDimension(explicitReferrer || request.headers.get("referer"), 2_048);
+  if (!raw) return "direct";
+  try {
+    const current = new URL(request.url);
+    const referrer = new URL(raw);
+    return referrer.hostname === current.hostname ? "self" : analyticsDimension(referrer.hostname, 255);
+  } catch {
+    return "unknown";
+  }
+}
+
 function analyticsPoint(env: Env, event: string, input: {
   request: Request;
   requestId: string;
@@ -115,8 +131,9 @@ function analyticsPoint(env: Env, event: string, input: {
     return;
   }
   dataset.writeDataPoint({
-    indexes: [event],
+    indexes: [input.identityHash || "anonymous"],
     blobs: [
+      event,
       PRODUCT,
       env.ENVIRONMENT,
       input.requestId,
@@ -133,8 +150,8 @@ function analyticsPoint(env: Env, event: string, input: {
       String(attribution.utm_campaign || ""),
       String(attribution.utm_content || ""),
       String(attribution.utm_term || ""),
-      String(attribution.referrer || input.request.headers.get("referer") || ""),
-      input.request.headers.get("user-agent") || "",
+      referrerClass(input.request, attribution.referrer),
+      analyticsDimension(input.request.headers.get("user-agent"), 255),
     ],
     doubles: [
       input.status || 0,

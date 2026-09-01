@@ -19,8 +19,19 @@ Track active organizations, connected clients, research jobs, successful packets
 - Research quality, source availability, provider latency, failures, and cost per complete packet.
 - Alerts for auth failures, queue lag, completion-rate regression, source degradation, and abnormal per-organization use.
 
+## Cloudflare dataset schema
+
+Dataset: `seo_researcher_events`
+
+- `index1`: pseudonymous authenticated identity hash, or `anonymous`.
+- `blob1`: event name.
+- `blob2`–`blob18`: product, environment, request ID, host, path, method, operation, job ID, error code, session ID, UTM dimensions, referrer class, and bounded user-agent string.
+- `double1`–`double4`: HTTP status, success state, latency in milliseconds, and edge write time.
+
+Referrers are reduced to `direct`, `self`, `unknown`, or the external source hostname. URL paths, query strings, bearer tokens, API keys, research topics, and result contents are never written to the dataset.
+
 ## Production collection status
 
 Rankability PostHog project `294857` is the canonical cross-surface analytics store. The pinned dashboard **SEO Researcher — Launch, Activation & Embedded Usage** is created there; saved insights are added only after the corresponding production event/property pairs appear in PostHog's live schema.
 
-The Cloudflare Worker writes privacy-safe structured lifecycle events for edge health and request correlation. Cloudflare Analytics Engine is not enabled for the production account yet, so the optional `ANALYTICS` binding is intentionally absent and the Worker emits `edge_analytics_fallback` log records instead. Once Analytics Engine is enabled, restore the dataset binding and verify edge-to-PostHog reconciliation before treating the analytics launch gate as passed.
+Cloudflare Analytics Engine is enabled for the production account and the Worker binds `SEO_ANALYTICS` to `seo_researcher_events`. The Worker retains its privacy-safe `edge_analytics_fallback` log path so a missing binding remains visible instead of silently dropping telemetry. Rankability PostHog remains the canonical cross-surface product analytics store; edge counts are reconciled against it after the Rankability production adapter begins emitting the matching lifecycle events.

@@ -17,6 +17,12 @@
     "SIGNUP_URL": "https://app.rankability.com/start?product=seo_researcher&interval=monthly",
     "POSTHOG_HOST": "https://us.i.posthog.com"
   },
+  "analytics_engine_datasets": [
+    {
+      "binding": "SEO_ANALYTICS",
+      "dataset": "seo_researcher_events"
+    }
+  ],
   "observability": {
     "enabled": true,
     "logs": {
