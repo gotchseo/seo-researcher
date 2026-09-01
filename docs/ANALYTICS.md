@@ -18,3 +18,9 @@ Track active organizations, connected clients, research jobs, successful packets
 - Weekly embedded research organizations and jobs per active organization.
 - Research quality, source availability, provider latency, failures, and cost per complete packet.
 - Alerts for auth failures, queue lag, completion-rate regression, source degradation, and abnormal per-organization use.
+
+## Production collection status
+
+Rankability PostHog project `294857` is the canonical cross-surface analytics store. The pinned dashboard **SEO Researcher — Launch, Activation & Embedded Usage** is created there; saved insights are added only after the corresponding production event/property pairs appear in PostHog's live schema.
+
+The Cloudflare Worker writes privacy-safe structured lifecycle events for edge health and request correlation. Cloudflare Analytics Engine is not enabled for the production account yet, so the optional `ANALYTICS` binding is intentionally absent and the Worker emits `edge_analytics_fallback` log records instead. Once Analytics Engine is enabled, restore the dataset binding and verify edge-to-PostHog reconciliation before treating the analytics launch gate as passed.
