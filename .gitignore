@@ -2,6 +2,7 @@ node_modules/
 dist/
 .astro/
 .wrangler/
+.cf-bundle/
 .dev.vars
 .env
 .env.*
