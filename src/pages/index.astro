@@ -5,11 +5,11 @@ const title = "SEO Researcher — SEO research for Claude, Codex, Cursor, and AI
 const description = "Research live Google competitors, topics, entities, search questions, content gaps, and AI citations before your AI agent writes.";
 const canonical = "https://seoresearcher.ai/";
 const faq = [
-  { q: "Is SEO Researcher another AI writer?", a: "No. It is the research layer for the AI agent you already use. You keep writing in Claude, Codex, Cursor, or your own agent." },
+  { q: "Is SEO Researcher another AI writer?", a: "No. It researches Google competitors and AI citations for the writing tool you already use. You keep writing in Claude, Codex, Cursor, or your own agent." },
   { q: "What does the research include?", a: "Live Google competitors, competitor coverage, topics, entities, search questions, AI citations, source URLs, content gaps, and recommended areas to cover." },
-  { q: "Which tools does it work with?", a: "Any MCP-compatible client can connect. The REST API works in custom applications and automated workflows." },
+  { q: "Which tools does it work with?", a: "It works with Claude, Codex, Cursor, OpenClaw, and any tool that supports MCP. The REST API works in custom applications and automated workflows." },
   { q: "How does the trial work?", a: "The 14-day trial starts when you submit your card. Cancel before it ends and you will not be charged. After the trial, the plan is $49 per month or $490 per year." },
-  { q: "Do I need to count credits?", a: "No. Use the product normally and make it part of your workflow. The plan has fair usage safeguards, but there is no credit counter to manage." }
+  { q: "Do I need to count credits?", a: "No. Use the product normally and make it part of your workflow. Fair-use limits protect service quality, but there is no credit counter to manage." }
 ];
 const jsonLd = [
   {
@@ -81,19 +81,19 @@ const jsonLd = [
       <nav aria-label="Primary navigation">
         <a href="#research">Research</a>
         <a href="#pricing">Pricing</a>
-        <a class="button compact" href="/start" data-event="trial_cta_clicked" data-location="header">Start free trial</a>
+        <a class="button compact" href="/start" aria-label="Start your 14-day trial" data-event="trial_cta_clicked" data-location="header"><span class="compact-long" aria-hidden="true">Start your 14-day trial</span><span class="compact-short" aria-hidden="true">Start trial</span></a>
       </nav>
     </header>
 
     <main id="main">
       <section class="hero shell" aria-labelledby="hero-title">
         <div class="hero-copy">
-          <p class="eyebrow">SEO research for AI agents</p>
+          <p class="eyebrow">For marketers creating SEO content with AI</p>
           <h1 id="hero-title">Give your AI agent the SEO research it’s missing.</h1>
-          <p class="lede">Research live Google competitors, topics, content gaps, and AI citations before Claude—or any agent—writes your content.</p>
+          <p class="lede">See what ranking pages cover, what they miss, and which sources AI systems cite—then give the findings directly to Claude or your agent.</p>
           <div class="hero-actions">
             <a class="button" href="/start" data-event="trial_cta_clicked" data-location="hero">Start your 14-day trial <span aria-hidden="true">→</span></a>
-            <span class="trial-note">$49/month after trial. Card required. Cancel anytime.</span>
+            <span class="trial-note">Next: create your account, add a card, and connect your agent. $49/month after 14 days. Cancel anytime.</span>
           </div>
           <div class="works-with" aria-label="Compatible tools">
             <span>Works with</span>
@@ -129,13 +129,13 @@ const jsonLd = [
 
       <section id="research" class="section shell" aria-labelledby="research-title">
         <p class="eyebrow">Research before you write</p>
-        <h2 id="research-title">One request. A complete research packet.</h2>
+        <h2 id="research-title">One request returns competitors, topics, gaps, and citations.</h2>
         <p class="section-lede">Give your agent evidence it can use—not another generic article draft.</p>
         <div class="research-grid">
           <article class="card"><span>01</span><h3>Google competitors</h3><p>See which pages actually rank for the target search and what is on each page.</p></article>
           <article class="card"><span>02</span><h3>Topics</h3><p>Understand what top-ranking content consistently covers and how it structures the subject.</p></article>
           <article class="card"><span>03</span><h3>Entities</h3><p>Find the people, brands, products, concepts, and terms that matter to the topic.</p></article>
-          <article class="card"><span>04</span><h3>AI citations</h3><p>See source URLs cited across AI search results, with platform and source provenance.</p></article>
+          <article class="card"><span>04</span><h3>AI citations</h3><p>See the URLs cited across AI search results, including which AI platform cited each source.</p></article>
           <article class="card"><span>05</span><h3>Content gaps</h3><p>Find useful questions, evidence, and subtopics that competing pages have missed.</p></article>
           <article class="card"><span>06</span><h3>Search questions</h3><p>Discover the questions people ask and carry the relevant ones into the content plan.</p></article>
         </div>
@@ -146,7 +146,7 @@ const jsonLd = [
           <p class="eyebrow">No new content workflow</p>
           <h2>Connect once. Keep working where you already work.</h2>
           <ol>
-            <li><span>1</span><div><strong>Connect the MCP</strong><p>Authorize SEO Researcher in Claude, Codex, Cursor, or another MCP client.</p></div></li>
+            <li><span>1</span><div><strong>Connect your agent</strong><p>Authorize SEO Researcher in Claude, Codex, Cursor, OpenClaw, or another MCP tool.</p></div></li>
             <li><span>2</span><div><strong>Ask for research</strong><p>“Research ‘best CRM software’ before we create this article.”</p></div></li>
             <li><span>3</span><div><strong>Write with evidence</strong><p>Your agent receives competitors, topics, entities, questions, citations, gaps, and source URLs.</p></div></li>
           </ol>
@@ -156,8 +156,8 @@ const jsonLd = [
       <section class="section shell agent-example" aria-labelledby="ask-title">
         <div>
           <p class="eyebrow">Built for agents</p>
-          <h2 id="ask-title">Ask your agent to research anything.</h2>
-          <p class="section-lede">The result is structured for an agent to reason over, cite, and use in its next step.</p>
+          <h2 id="ask-title">Ask your agent to research any SEO topic.</h2>
+          <p class="section-lede">Your agent receives organized findings and source URLs it can use in its next step.</p>
         </div>
         <div class="prompt-card card">
           <span class="prompt-label">You</span>
@@ -169,8 +169,8 @@ const jsonLd = [
       <section id="pricing" class="pricing shell" aria-labelledby="pricing-title">
         <div class="pricing-copy">
           <p class="eyebrow">Simple pricing</p>
-          <h2 id="pricing-title">Use it enough to make it infrastructure.</h2>
-          <p>There is no credit counter to ration. Connect it to your agentic workflow and use it whenever research should happen before writing.</p>
+          <h2 id="pricing-title">Research every article without counting credits.</h2>
+          <p>There is no credit counter to manage. Connect SEO Researcher to your agent and use it whenever research should happen before writing.</p>
         </div>
         <div class="price-card card">
           <span class="plan-name">SEO Researcher</span>
@@ -179,9 +179,9 @@ const jsonLd = [
           <ul>
             <li>14-day free trial</li>
             <li>Card required to start</li>
-            <li>Full Google and AI citation research</li>
+            <li>Google competitor and AI citation research</li>
             <li>MCP and REST API access</li>
-            <li>Fair usage safeguards, no credit counter</li>
+            <li>No credit counter for normal use</li>
           </ul>
           <a class="button" href="/start" data-event="trial_cta_clicked" data-location="pricing">Start your 14-day trial <span aria-hidden="true">→</span></a>
           <small>Cancel before the trial ends and you will not be charged.</small>
@@ -217,12 +217,13 @@ const jsonLd = [
 
 <style>
   .site-header { min-height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
-  .brand { display: inline-flex; align-items: center; gap: .7rem; font-weight: 900; text-decoration: none; letter-spacing: -.025em; }
+  .brand { display: inline-flex; align-items: center; gap: .7rem; flex-shrink: 0; white-space: nowrap; font-weight: 900; text-decoration: none; letter-spacing: -.025em; }
   .brand-mark { width: 1.25rem; height: 1.25rem; border: 3px solid var(--ink); border-radius: 50%; position: relative; background: var(--acid); }
   .brand-mark::after { content: ""; position: absolute; width: .55rem; height: 3px; background: var(--ink); right: -.45rem; bottom: -.2rem; rotate: 45deg; border-radius: 10px; }
   .site-header nav, .site-footer nav { display: flex; align-items: center; gap: 1.25rem; }
   .site-header nav > a:not(.button), .site-footer nav a { color: var(--muted); text-decoration: none; font-size: .92rem; font-weight: 650; }
-  .compact { min-height: 40px; padding: .55rem .85rem; box-shadow: 3px 3px 0 var(--ink); }
+  .compact { min-height: 40px; padding: .55rem .85rem; white-space: nowrap; box-shadow: 3px 3px 0 var(--ink); }
+  .compact-short { display: none; }
   .hero { display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(2rem, 6vw, 6rem); align-items: center; padding-block: clamp(4.5rem, 10vw, 8rem); }
   h1, h2 { margin: 0; letter-spacing: -.055em; line-height: .98; text-wrap: balance; }
   h1 { max-width: 780px; margin-top: 1.15rem; font-size: clamp(3rem, 7.3vw, 6.35rem); }
@@ -304,11 +305,15 @@ const jsonLd = [
   }
   @media (max-width: 560px) {
     .shell { width: min(100% - 1.2rem, 1120px); }
-    .site-header { min-height: 68px; }
+    .site-header { min-height: 68px; gap: .75rem; }
     .site-header .compact { font-size: .8rem; padding-inline: .7rem; }
     h1 { font-size: clamp(2.65rem, 14vw, 4rem); }
     .research-grid, .workflow ol { grid-template-columns: 1fr; }
     .packet-summary { grid-template-columns: repeat(3, 1fr); }
     .site-footer nav { flex-wrap: wrap; }
+  }
+  @media (max-width: 360px) {
+    .compact-long { display: none; }
+    .compact-short { display: inline; }
   }
 </style>
