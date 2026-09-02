@@ -40,9 +40,21 @@
   });
 
   document.querySelectorAll("[data-copy-prompt]").forEach((button) => {
-    button.addEventListener("click", async () => {
-      await navigator.clipboard.writeText(button.dataset.copyPrompt || "");
+    button.addEventListener("click", () => {
       button.textContent = "Copied";
+      navigator.clipboard.writeText(button.dataset.copyPrompt || "").catch(() => {
+        button.textContent = "Copy failed";
+      });
+      window.setTimeout(() => { button.textContent = "Copy prompt"; }, 1600);
+    });
+  });
+
+  document.querySelectorAll(".faq-list details").forEach((details) => {
+    details.addEventListener("toggle", () => {
+      if (!details.open) return;
+      document.querySelectorAll(".faq-list details[open]").forEach((other) => {
+        if (other !== details) other.open = false;
+      });
     });
   });
 

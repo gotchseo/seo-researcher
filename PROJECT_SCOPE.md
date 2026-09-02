@@ -1,7 +1,17 @@
 # SEO Researcher project scope
 
-SEO Researcher is a separate public product and brand at `seoresearcher.ai`.
-It gives AI agents structured SEO research before they write content.
+SEO Researcher is a Rankability sub-brand with a separate public product
+identity at `seoresearcher.ai`. It gives AI agents structured SEO research
+before they write content.
+
+## Design direction
+
+- Endorsed sub-brand lockup: `SEO Researcher · By Rankability`.
+- Rankability Graphik typography, navy `#000E4C`, and blue `#327EEF`.
+- SEO Researcher lime `#D7FF64` is reserved for the primary-button arrow.
+- Restrained 720px editorial column with white background, hairline dividers,
+  no decorative cards, imagery, animation, or shadows.
+- High-fidelity source: the September 2026 landing-page design handoff.
 
 ## In scope
 
