@@ -16,6 +16,8 @@ before they write content.
 ## In scope
 
 - A one-page marketing site at `seoresearcher.ai`.
+- A focused signup, checkout, and connection shell at `app.seoresearcher.ai`
+  backed by the existing Rankability application deployment.
 - A branded REST API at `api.seoresearcher.ai`.
 - A focused remote MCP server at `mcp.seoresearcher.ai/mcp`.
 - OAuth discovery and connection flows that delegate identity and entitlement
