@@ -14,7 +14,7 @@
     "MCP_ORIGIN": "https://mcp.seoresearcher.ai",
     "RANKABILITY_APP_ORIGIN": "https://app.rankability.com",
     "RANKABILITY_AGENT_API_ORIGIN": "https://app.rankability.com/api/agent/v1",
-    "SIGNUP_URL": "https://app.rankability.com/start?product=seo_researcher&interval=monthly",
+    "SIGNUP_URL": "https://app.seoresearcher.ai/start?interval=monthly",
     "POSTHOG_HOST": "https://us.i.posthog.com"
   },
   "analytics_engine_datasets": [
