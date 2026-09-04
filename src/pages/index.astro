@@ -4,6 +4,7 @@ import "../styles/global.css";
 const title = "SEO Researcher — SEO research for Claude, Codex, Cursor, and AI agents";
 const description = "Research live Google competitors, topics, entities, search questions, content gaps, and AI citations before your AI agent writes.";
 const canonical = "https://seoresearcher.ai/";
+const trialUrl = "/start?interval=monthly";
 
 const features = [
   { n: "01", title: "Google competitors", body: "See which pages actually rank for the target search and what is on each page." },
@@ -92,7 +93,7 @@ const jsonLd = [
     <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-header page-shell">
       <a class="brand-lockup" href="/" aria-label="SEO Researcher home"><span>SEO Researcher</span><small>By Rankability</small></a>
-      <a class="text-link" href="#pricing" data-event="trial_cta_clicked" data-location="header">Start trial</a>
+      <a class="text-link" href={trialUrl} data-event="trial_cta_clicked" data-location="header">Start trial</a>
     </header>
 
     <main id="main">
@@ -101,7 +102,7 @@ const jsonLd = [
         <h1 id="hero-title">Give your AI agent the SEO research it’s missing.</h1>
         <p class="hero-lead">See what ranking pages cover, what they miss, and which sources AI systems cite—then give the findings directly to Claude or your agent.</p>
         <div class="cta-stack">
-          <a class="primary-button" href="#pricing" data-event="trial_cta_clicked" data-location="hero">Start your 14-day trial <span aria-hidden="true">→</span></a>
+          <a class="primary-button" href={trialUrl} data-event="trial_cta_clicked" data-location="hero">Start your 14-day trial <span aria-hidden="true">→</span></a>
           <p class="small-copy">Next: create your account, add a card, and connect your agent. $49/month after 14 days. Cancel anytime.</p>
         </div>
         <p class="works-with">Works with Claude · Codex · Cursor · OpenClaw · Any MCP client</p>
@@ -176,7 +177,7 @@ const jsonLd = [
             <li><span aria-hidden="true">—</span>No credit counter for normal use</li>
           </ul>
           <div class="cta-stack">
-            <a class="primary-button" href="/start" data-event="trial_cta_clicked" data-location="pricing">Start your 14-day trial <span aria-hidden="true">→</span></a>
+            <a class="primary-button" href={trialUrl} data-event="trial_cta_clicked" data-location="pricing">Start your 14-day trial <span aria-hidden="true">→</span></a>
             <p class="small-copy">Cancel before the trial ends and you will not be charged.</p>
           </div>
         </div>
@@ -194,7 +195,7 @@ const jsonLd = [
           <p class="eyebrow">Your AI can write</p>
           <h2 id="final-title">Give it better research.</h2>
           <p class="section-lead">Connect your agent to live Google competitors, topics, entities, content gaps, search questions, and AI citations.</p>
-          <a class="primary-button final-button" href="#pricing" data-event="trial_cta_clicked" data-location="final">Start your 14-day trial <span aria-hidden="true">→</span></a>
+          <a class="primary-button final-button" href={trialUrl} data-event="trial_cta_clicked" data-location="final">Start your 14-day trial <span aria-hidden="true">→</span></a>
         </div>
       </section>
     </main>
