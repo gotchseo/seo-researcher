@@ -5,6 +5,7 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   site: "https://seoresearcher.ai",
   output: "static",
+  markdown: { shikiConfig: { theme: "github-light" } },
   integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()],

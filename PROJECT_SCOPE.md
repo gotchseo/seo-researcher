@@ -16,6 +16,9 @@ before they write content.
 ## In scope
 
 - A one-page marketing site at `seoresearcher.ai`.
+- A searchable help center at `seoresearcher.ai/help` with platform setup,
+  evidence-led content workflows, and downloadable agent skills. Documentation
+  must distinguish vendor-supported setup from verified product connections.
 - A focused signup, checkout, and connection shell at `app.seoresearcher.ai`
   backed by the existing Rankability application deployment.
 - A branded REST API at `api.seoresearcher.ai`.

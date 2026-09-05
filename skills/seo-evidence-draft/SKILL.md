@@ -1,15 +1,17 @@
 ---
-name: seo-research
-description: "Research a specific search topic with the SEO Researcher MCP and return evidence, intent, gaps, and a defensible angle before writing. Use for research requests, not article drafting or general brainstorming."
+name: seo-evidence-draft
+description: "Draft content from a supplied brief and SEO Researcher packet while verifying material claims and preserving first-party evidence. Use for requested article creation, not pure research or scoring."
 ---
 
-# Research before writing
+# Write with evidence
 
-Establish the exact topic, reader, page type, market, language, and intended reader decision from the request. Ask only for missing information that changes the research; label reasonable assumptions.
+Use the supplied brief, job ID, first-party material, and editorial constraints. If no brief exists, derive a compact working plan within the requested drafting scope. Do not insist on an extra approval gate for an already authorized draft.
 
-After retrieving the packet, distinguish observed ranking-page patterns and AI citations from your editorial interpretation. Check source relevance and capture context. Identify essential questions and concepts, discard off-topic results, and prioritize gaps by reader value and available evidence rather than raw occurrence counts.
+Answer the main question early, explain tradeoffs, and use concrete examples supported by the supplied evidence. Make entities, dates, units, and comparison dimensions consistent. Give useful passages enough context to stand alone without repeating sections. Add tables or steps only when they help the reader.
 
-Return a concise research memo: request and job ID; intent and relevant competitors; important questions and concepts; source-backed observations; partial or missing evidence; proposed angle; and first-party evidence needed. Do not write a full article unless requested. Do not claim the packet provides traffic, search volume, or a complete ranking/AI answer history unless those data are actually present.
+Verify consequential or time-sensitive claims against accessible primary sources using available browsing tools. Keep a claim ledger with source, direct support, date, and limitation. If a source cannot be read, do not attribute an invented finding to it. Omit unsupported claims or mark them in an editorial note; never fabricate personal tests, interviews, or results. Keep quotations short and attributed, and paraphrase independently.
+
+Return the draft plus an editorial evidence note listing unresolved claims, actual sources consulted, and missing original material. Do not publish or call an article search-optimized solely because it covers an entity list. A material factual defect blocks a publish-ready claim regardless of style or a score.
 
 ## MCP execution contract
 

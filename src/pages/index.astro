@@ -93,6 +93,7 @@ const jsonLd = [
     <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-header page-shell">
       <a class="brand-lockup" href="/" aria-label="SEO Researcher home"><span>SEO Researcher</span><small>By Rankability</small></a>
+      <a class="text-link" href="/help">Help center</a>
       <a class="text-link" href={trialUrl} data-event="trial_cta_clicked" data-location="header">Start trial</a>
     </header>
 
@@ -127,11 +128,12 @@ const jsonLd = [
         </div>
       </section>
 
-      <section id="how" class="section page-shell" aria-labelledby="how-title">
+      <section id="how-it-works" class="section page-shell" aria-labelledby="how-title">
         <div class="section-heading feature-heading">
           <p class="eyebrow">No new content workflow</p>
           <h2 id="how-title">Connect once. Keep working where you already work.</h2>
         </div>
+        <p><a class="text-link" href="/help#connect">Choose your platform and follow the setup guide →</a></p>
         <ol class="steps">
           <li><span class="index">1</span><div><h3>Connect your agent</h3><p>Authorize SEO Researcher in Claude, Codex, Cursor, OpenClaw, or another MCP tool.</p></div></li>
           <li><span class="index">2</span><div><h3>Ask for research</h3><p>“Research ‘best CRM software’ before we create this article.”</p></div></li>
@@ -202,9 +204,13 @@ const jsonLd = [
 
     <footer class="site-footer page-shell">
       <span>SEO Researcher · By Rankability</span>
-      <nav aria-label="Footer navigation"><a href="https://docs.seoresearcher.ai">Documentation</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></nav>
+      <nav aria-label="Footer navigation"><a href="/help">Help center</a><a href="/help/skills">Starter skills</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></nav>
     </footer>
     <script is:inline src="/analytics.js" defer></script>
+    <script is:inline>
+      // Existing application setup links use this legacy fragment.
+      if (window.location.hash === '#how-it-works') window.location.replace('/help#connect');
+    </script>
   </body>
 </html>
 
@@ -284,6 +290,8 @@ const jsonLd = [
   .site-footer a:hover { color: var(--navy); text-decoration: underline; }
 
   @media (max-width: 600px) {
+    .site-header { flex-wrap: wrap; justify-content: flex-start; gap: 18px 24px; }
+    .site-header .brand-lockup { flex-basis: 100%; }
     .hero { padding-block: 72px 80px; }
     h1 { font-size: 40px; }
     h2 { font-size: 28px; }

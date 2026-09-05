@@ -1,15 +1,17 @@
 ---
-name: seo-research
-description: "Research a specific search topic with the SEO Researcher MCP and return evidence, intent, gaps, and a defensible angle before writing. Use for research requests, not article drafting or general brainstorming."
+name: seo-editorial-review
+description: "Review a final draft against its brief, SEO Researcher evidence, and source support; identify exact defects and distinguish publication blockers from optional improvements."
 ---
 
-# Research before writing
+# Review before publication
 
-Establish the exact topic, reader, page type, market, language, and intended reader decision from the request. Ask only for missing information that changes the research; label reasonable assumptions.
+Review the actual final draft, explicit instructions, supplied brief, and packet. Do not start fresh research when the evidence is sufficient. If research or source access is missing, disclose the review's limits rather than manufacturing evidence.
 
-After retrieving the packet, distinguish observed ranking-page patterns and AI citations from your editorial interpretation. Check source relevance and capture context. Identify essential questions and concepts, discard off-topic results, and prioritize gaps by reader value and available evidence rather than raw occurrence counts.
+Check reader-intent fit, original contribution, factual support, source freshness, concrete usefulness, consistency, duplication, and important qualifications. Review exact passages. A ranking competitor's claim is not automatically true; an AI citation is not endorsement, sentiment, or proof of training data. Do not judge quality by entity density or word count.
 
-Return a concise research memo: request and job ID; intent and relevant competitors; important questions and concepts; source-backed observations; partial or missing evidence; proposed angle; and first-party evidence needed. Do not write a full article unless requested. Do not claim the packet provides traffic, search volume, or a complete ranking/AI answer history unless those data are actually present.
+Return prioritized findings with the passage, issue category, materiality, evidence, and specific correction. Separate publication blockers from optional improvements. When claims cannot be verified, classify them as unverified rather than false. Avoid reassuring numeric scores when a consequential defect remains.
+
+Do not rewrite or publish unless requested. If providing a measurement plan, keep traditional search, AI citations/mentions, sentiment, and business outcomes distinct; record page version, prompt/query, platform, capture date, and comparability. Do not invent results or attribute causation from a before/after observation alone.
 
 ## MCP execution contract
 

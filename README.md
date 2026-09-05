@@ -6,6 +6,10 @@ The public website, REST façade, and remote MCP server run on Cloudflare. Resea
 
 ## Connect an agent
 
+The [help center](https://seoresearcher.ai/help) includes platform-specific
+connection guides, content workflows, troubleshooting, and five downloadable
+[starter skills](https://seoresearcher.ai/help/skills).
+
 Use the Streamable HTTP MCP endpoint:
 
 ```text

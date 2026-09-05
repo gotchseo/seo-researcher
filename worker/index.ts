@@ -2,6 +2,7 @@ import { McpServer } from "@modelcontextprotocol/server";
 import { createMcpHandler } from "agents/mcp/server";
 import { z } from "zod";
 import { EMBEDDED_SITE } from "./embedded-site";
+import { embeddedSiteResponse } from "./site-response";
 
 const PRODUCT = "seo_researcher";
 const API_PREFIX = "/v1/research";
@@ -36,20 +37,6 @@ function json(data: unknown, init: ResponseInit = {}): Response {
   return new Response(JSON.stringify(data), { ...init, headers });
 }
 
-function embeddedSiteResponse(url: URL): Response | null {
-  const pathname = url.pathname === "/" ? "/index.html" : url.pathname;
-  const candidates = [pathname, `${pathname.replace(/\/$/, "")}/index.html`];
-  const asset = candidates.map((candidate) => EMBEDDED_SITE[candidate]).find(Boolean);
-  if (!asset) return null;
-  const headers = new Headers({
-    "content-type": asset.contentType,
-    "x-content-type-options": "nosniff",
-    "referrer-policy": "strict-origin-when-cross-origin",
-    "permissions-policy": "camera=(), microphone=(), geolocation=()",
-  });
-  headers.set("cache-control", asset.contentType.startsWith("text/html") ? "public, max-age=300" : "public, max-age=31536000, immutable");
-  return new Response(asset.body, { headers });
-}
 
 function corsHeaders(request: Request): Headers {
   const headers = new Headers({
@@ -523,12 +510,12 @@ export default {
       if (url.pathname === API_PREFIX || url.pathname.startsWith(`${API_PREFIX}/`)) return proxyRest(request, env);
 
       if (url.hostname === new URL(env.API_ORIGIN).hostname) {
-        return withCors(json({ name: "SEO Researcher API", version: "v1", docs: "https://docs.seoresearcher.ai" }), request);
+        return withCors(json({ name: "SEO Researcher API", version: "v1", docs: "https://seoresearcher.ai/help/tools" }), request);
       }
       if (url.hostname === new URL(env.MCP_ORIGIN).hostname) {
         return json({ name: "SEO Researcher MCP", endpoint: publicMcpUrl(env), authentication: "OAuth 2.0 or bearer API key" });
       }
-      return embeddedSiteResponse(url) || json({ error: { code: "not_found", message: "Page not found." } }, { status: 404 });
+      return embeddedSiteResponse(url, EMBEDDED_SITE) || json({ error: { code: "not_found", message: "Page not found." } }, { status: 404 });
     } catch (error) {
       const id = requestId(request);
       console.error(JSON.stringify({ event: "edge_request_failed", request_id: id, path: url.pathname, error: error instanceof Error ? error.message : String(error) }));

@@ -1,0 +1,45 @@
+---
+import '../styles/global.css';
+import '../styles/help.css';
+const meta = Astro.props.frontmatter ?? Astro.props;
+const { title, description, category = 'Help center', sources = [] } = meta;
+const canonical = new URL(Astro.url.pathname.replace(/\/$/, ''), 'https://seoresearcher.ai').href;
+const groups = [
+  { name: 'Get connected', links: [['Choose your platform','/help#connect'],['Verify your connection','/help/verify'],['Troubleshooting','/help/troubleshooting']] },
+  { name: 'Create better content', links: [['Your first research','/help/workflows/first-research'],['Build a content brief','/help/workflows/content-brief'],['Write with evidence','/help/workflows/write'],['Improve an existing page','/help/workflows/refresh'],['AI search & SEO','/help/workflows/search-quality'],['Review & measure','/help/workflows/review-measure']] },
+  { name: 'Use with your agent', links: [['Install starter skills','/help/skills'],['MCP tool reference','/help/tools'],['Get help','/help/support']] },
+];
+const schema = { '@context': 'https://schema.org', '@type': 'TechArticle', headline: title, description, url: canonical, publisher: { '@type': 'Organization', name: 'SEO Researcher' } };
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/><meta name="viewport" content="width=device-width"/>
+  <title>{title} | SEO Researcher Help</title><meta name="description" content={description}/>
+  <link rel="canonical" href={canonical}/><link rel="icon" href="/favicon.svg"/>
+  <meta name="theme-color" content="#ffffff"/>
+  <meta property="og:title" content={title}/><meta property="og:description" content={description}/><meta property="og:type" content="article"/><meta property="og:url" content={canonical}/><meta property="og:image" content="https://seoresearcher.ai/og.svg"/>
+  <meta name="twitter:card" content="summary"/>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g, '\\u003c')}/>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="help-header"><a class="help-brand" href="/">SEO Researcher <span>Help center</span></a><nav aria-label="Main navigation"><a href="/help">Guides</a><a href="/help/skills">Starter skills</a><a href="https://app.seoresearcher.ai/seo-researcher/connected">My account ↗</a></nav></header>
+<div class="help-grid">
+<aside class="help-sidebar"><a class="all-guides" href="/help">← All guides</a><nav aria-label="Help topics">{groups.map(group => <section><h2>{group.name}</h2>{group.links.map(([label,href]) => <a href={href} aria-current={Astro.url.pathname.replace(/\/$/,'') === href ? 'page' : undefined}>{label}</a>)}</section>)}</nav></aside>
+<main id="main" class="help-main">
+  <div class="article-heading"><p class="help-eyebrow">{category}</p><h1>{title}</h1><p class="help-lead">{description}</p></div>
+  <article class="prose"><slot/></article>
+  {sources.length > 0 && <section class="help-sources"><h2>Sources & compatibility</h2><p>Platform documentation checked September 4, 2026. Menu names and account access can change. These are documented setup paths, not a claim of completed SEO Researcher testing on every client.</p><ul>{sources.map((source: {title:string;url:string}) => <li><a href={source.url}>{source.title} ↗</a></li>)}</ul></section>}
+  <footer class="article-footer"><p>Need a hand? <a href="/help/support">Get setup help →</a></p><a href="/help">Explore all guides</a></footer>
+</main></div>
+<footer class="help-footer"><span>SEO Researcher · By Rankability</span><nav aria-label="Legal"><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/help/support">Contact</a></nav></footer>
+<script>
+  document.querySelectorAll<HTMLElement>('.prose pre').forEach((pre) => {
+    const button = document.createElement('button'); button.type = 'button'; button.className = 'copy-code'; button.textContent = 'Copy'; button.setAttribute('aria-label', 'Copy example');
+    const code = pre.querySelector('code')?.textContent ?? pre.textContent ?? '';
+    button.addEventListener('click', async () => { try { await navigator.clipboard.writeText(code.trim()); button.textContent = 'Copied'; } catch { button.textContent = 'Select & copy'; } setTimeout(() => { button.textContent = 'Copy'; }, 2000); });
+    pre.appendChild(button);
+  });
+</script>
+</body></html>
