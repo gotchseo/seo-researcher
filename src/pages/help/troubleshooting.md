@@ -9,9 +9,9 @@ sources: []
 
 ## Rankability login or an authorization loop
 
-**Known issue observed September 4, 2026:** the SEO Researcher OAuth handoff can open a generic Rankability login and fail to preserve a usable return path. The signup email is the relevant identity; you should not buy a second subscription to connect.
+**Updated September 5, 2026:** the authorization return-path repair is deployed. A live read-only test verified SEO Researcher consent, callback state, token exchange, and MCP tool discovery. The shared sign-in service still uses `app.rankability.com`; the consent page should identify SEO Researcher and request only SEO research permissions. Use the account from signup; you should not buy a second subscription to connect.
 
-A new login can be expected if your agent opens a different browser profile or a regular window after an Incognito signup. Use the same account in that browser, then restart **Connect** from the original agent. This may resolve a missing session; it is not a verified repair for the product’s return-path defect. If you land on a generic dashboard, pricing page, or repeated login, stop and [send the connection details to support](/help/support).
+A new login can be expected if your agent opens a different browser profile or a regular window after an Incognito signup. Use the same account in that browser, then restart **Connect** from the original agent. Reconnect an older connector after the update so it receives a grant for the current SEO Researcher server. Each client still needs its own successful connection check. If you land on a generic dashboard, pricing page, or repeated login, stop and [send the connection details to support](/help/support).
 
 Do not copy session cookies, paste tokens, grant broader Rankability permissions, or repeatedly create connectors to work around this issue. Successful connection requires the [read-only check](/help/verify).
 
@@ -35,4 +35,4 @@ For a `429`, respect the returned recovery time. For a temporary request failure
 
 ## Trial active, but the email says Rankability
 
-A wrong-product trial email was reported September 4, 2026. The shared template may describe a seven-day trial or tracking workflow, while SEO Researcher’s offer is fourteen days. Confirm your actual subscription dates in your checkout/account record and contact support about any mismatch. Do not start another checkout to repair an email or connector issue.
+A wrong-product trial email was reported September 4, 2026. Separate SEO Researcher trial templates and a send-time product check were deployed September 5. Previously delivered emails cannot be recalled. An older Rankability email may describe a seven-day trial or tracking workflow, while SEO Researcher’s offer is fourteen days. Confirm your actual subscription dates in your checkout/account record and contact support about any mismatch. Do not start another checkout to repair an email or connector issue.
