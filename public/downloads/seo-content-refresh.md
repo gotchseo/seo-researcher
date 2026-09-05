@@ -1,15 +1,15 @@
 ---
-name: seo-research
-description: "Research a specific search topic with the SEO Researcher MCP and return evidence, intent, gaps, and a defensible angle before writing. Use for research requests, not article drafting or general brainstorming."
+name: seo-content-refresh
+description: "Compare an existing page with SEO Researcher evidence and propose targeted, evidence-backed improvements. Use for content refresh requests, not sitewide technical audits."
 ---
 
-# Research before writing
+# Improve an existing page
 
-Establish the exact topic, reader, page type, market, language, and intended reader decision from the request. Ask only for missing information that changes the research; label reasonable assumptions.
+Read the current page or supplied text, target audience, topic, and explicit constraints. Use a supplied compatible research job when available, or perform the requested research with `target_url`. Treat Search Console, analytics, conversion data, and internal-link inventory as separate inputs; their absence is unknown.
 
-After retrieving the packet, distinguish observed ranking-page patterns and AI citations from your editorial interpretation. Check source relevance and capture context. Identify essential questions and concepts, discard off-topic results, and prioritize gaps by reader value and available evidence rather than raw occurrence counts.
+Identify exact passages needing factual correction, intent alignment, missing useful coverage, better evidence, or clearer presentation. Prioritize by reader impact and effort. Preserve distinctive examples and useful existing work; avoid a full rewrite simply for novelty. Do not infer cannibalization, traffic decline, or ranking cause from competitor coverage alone.
 
-Return a concise research memo: request and job ID; intent and relevant competitors; important questions and concepts; source-backed observations; partial or missing evidence; proposed angle; and first-party evidence needed. Do not write a full article unless requested. Do not claim the packet provides traffic, search volume, or a complete ranking/AI answer history unless those data are actually present.
+Return a prioritized change plan with passage, reason, evidence, proposed edit, and unknowns. If rewriting was requested, apply proportionate changes and explain them. Otherwise keep the original intact. Do not change URLs, redirects, canonicals, or publish without specific scope. Recommend a comparable measurement baseline without inventing performance data or causal improvement.
 
 ## MCP execution contract
 

@@ -1,15 +1,15 @@
 ---
-name: seo-research
-description: "Research a specific search topic with the SEO Researcher MCP and return evidence, intent, gaps, and a defensible angle before writing. Use for research requests, not article drafting or general brainstorming."
+name: seo-content-brief
+description: "Turn an existing SEO Researcher packet into an evidence-backed editorial brief for a defined audience and page. Use when asked for a brief or outline, not a full draft."
 ---
 
-# Research before writing
+# Build a content brief
 
-Establish the exact topic, reader, page type, market, language, and intended reader decision from the request. Ask only for missing information that changes the research; label reasonable assumptions.
+Use the supplied packet and brand requirements. Reuse the job instead of researching again by default. Separate the writer's instructions, first-party business facts, and external research evidence.
 
-After retrieving the packet, distinguish observed ranking-page patterns and AI citations from your editorial interpretation. Check source relevance and capture context. Identify essential questions and concepts, discard off-topic results, and prioritize gaps by reader value and available evidence rather than raw occurrence counts.
+Choose a defensible angle and organize sections around the reader's decision. For each section, identify its purpose, necessary concepts, relevant questions, evidence needed, and contribution beyond existing results. Label unsupported points and required expert input. Do not reproduce competitor heading order or require every entity to appear. Resolve duplication before handing off.
 
-Return a concise research memo: request and job ID; intent and relevant competitors; important questions and concepts; source-backed observations; partial or missing evidence; proposed angle; and first-party evidence needed. Do not write a full article unless requested. Do not claim the packet provides traffic, search volume, or a complete ranking/AI answer history unless those data are actually present.
+Return the audience/intent, angle, scoped section plan, evidence plan, relevant internal-link candidates (only from a known site inventory), conversion next step, and unresolved questions. Preserve explicit inclusions, exclusions, brand voice, and ordering. Surface a material conflict instead of silently overriding the user. A brief is not approval to draft or publish.
 
 ## MCP execution contract
 

@@ -7,14 +7,15 @@
   "scripts": {
     "dev": "astro dev",
     "dev:worker": "npm run build && wrangler dev",
-    "build": "astro build && node scripts/embed-site.mjs",
+    "build": "node scripts/package-skills.mjs && astro build && node scripts/embed-site.mjs",
     "check": "astro check && tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
     "types": "wrangler types",
     "deploy": "npm run build && wrangler deploy",
     "deploy:dry": "npm run build && wrangler deploy --dry-run",
-    "validate": "npm run build && npm run check && npm test && npm run deploy:dry"
+    "validate": "npm run build && npm run check && npm test && npm run deploy:dry",
+    "package:skills": "node scripts/package-skills.mjs"
   },
   "dependencies": {
     "@modelcontextprotocol/server": "2.0.0",

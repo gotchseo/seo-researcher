@@ -1,0 +1,34 @@
+---
+import HelpLayout from '../../layouts/HelpLayout.astro';
+interface Guide { url: string; frontmatter: { title: string; description: string; category: string; icon: string } }
+const guides = Object.values(import.meta.glob<Guide>('./**/*.md', { eager: true }));
+const sections = [
+ { id: 'connect', title: 'Connect your agent', category: 'Connect your agent' },
+ { id: 'workflows', title: 'From research to useful content', category: 'Content workflows' },
+ { id: 'essentials', title: 'Get unstuck. Go deeper.', category: 'other' },
+];
+const ordered = ['claude','claude-code','codex','cursor','vscode','windsurf','gemini-cli','cline','chatgpt','other'];
+const selected = (category:string) => guides.filter(g => category === 'other' ? !['Connect your agent','Content workflows'].includes(g.frontmatter.category) : g.frontmatter.category === category).sort((a,b) => category === 'Connect your agent' ? ordered.indexOf(a.url.split('/').pop()!) - ordered.indexOf(b.url.split('/').pop()!) : 0);
+---
+<HelpLayout title="Better research. Better content." description="Connect SEO Researcher to your agent. Turn live search evidence into content that earns its place." category="SEO Researcher help center">
+<div class="start-path"><div><h2>New here? Start with your agent.</h2><p>Pick your platform, connect your account, and verify access before your first research request.</p><a href="#connect">Choose your platform →</a></div><div><h2>Already connected?</h2><p>Install a starter skill to guide your agent from research through editorial review.</p><a href="/help/skills">Get the starter skills →</a></div></div>
+<div class="help-search"><label for="guide-search">Find a guide</label><input id="guide-search" type="search" placeholder="Try Claude, content brief, or connection…" autocomplete="off" aria-describedby="search-status"/></div>
+<p id="search-status" class="help-status" role="status" aria-live="polite">Browse all {guides.length} guides.</p>
+<p id="no-results" hidden>No matching guides. Try a platform name, “research,” or <a href="/help/support">get help</a>.</p>
+{sections.map(section => <section class="guide-section" id={section.id} data-guide-section><h2>{section.title}</h2><div class="guide-grid">{selected(section.category).map(guide => <a class="guide-card" href={guide.url} data-guide data-search={`${guide.frontmatter.title} ${guide.frontmatter.description} ${guide.frontmatter.category}`}><span class="card-icon" aria-hidden="true">{guide.frontmatter.icon}</span><h3>{guide.frontmatter.title}</h3><p>{guide.frontmatter.description}</p><span class="card-arrow" aria-hidden="true">Read guide →</span></a>)}</div></section>)}
+<script>
+const input = document.querySelector<HTMLInputElement>('#guide-search');
+const cards = [...document.querySelectorAll<HTMLElement>('[data-guide]')];
+input?.addEventListener('input', () => {
+  const words = input.value.toLocaleLowerCase().trim().split(/\s+/).filter(Boolean);
+  let count = 0;
+  cards.forEach(card => { card.hidden = !words.every(word => card.dataset.search?.toLocaleLowerCase().includes(word)); if (!card.hidden) count++; });
+  document.querySelectorAll<HTMLElement>('[data-guide-section]').forEach(section => { section.hidden = !section.querySelector('[data-guide]:not([hidden])'); });
+  const status = document.querySelector('#search-status'); if(status) status.textContent = words.length ? `${count} matching ${count === 1 ? 'guide' : 'guides'}.` : `Browse all ${cards.length} guides.`;
+  const empty = document.querySelector<HTMLElement>('#no-results'); if(empty) empty.hidden = count !== 0;
+});
+</script>
+</HelpLayout>
+<style>
+:global(.prose .guide-card){text-decoration:none;color:var(--navy)}:global(.prose .guide-card h3){margin:0 0 10px}:global(.prose .guide-card p){margin:0}:global(.prose .start-path h2){margin:0 0 12px}:global(.prose .start-path p){margin:0}:global(.prose .guide-section h2){font-size:24px}:global(.prose .guide-grid){grid-template-columns:repeat(2,minmax(0,1fr))}@media(max-width:680px){:global(.prose .guide-grid){grid-template-columns:1fr}}
+</style>

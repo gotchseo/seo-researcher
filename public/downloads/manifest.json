@@ -1,0 +1,37 @@
+[
+  {
+    "name": "seo-content-brief",
+    "version": "1.0.0",
+    "url": "/downloads/seo-content-brief.zip",
+    "sha256": "272ba5901098079691d4fd1e809fb75a5c134eea360dae25cd712454b2111aec",
+    "bytes": 3391
+  },
+  {
+    "name": "seo-content-refresh",
+    "version": "1.0.0",
+    "url": "/downloads/seo-content-refresh.zip",
+    "sha256": "69d9c66fd29c6d91e6c78ed16a2fc7137e7bd603be56c10072ab265c17a6247e",
+    "bytes": 3521
+  },
+  {
+    "name": "seo-editorial-review",
+    "version": "1.0.0",
+    "url": "/downloads/seo-editorial-review.zip",
+    "sha256": "c2190fc269462e66ad092e0897db45ddc72da038c16226e0b5d9109b024c76ff",
+    "bytes": 3713
+  },
+  {
+    "name": "seo-evidence-draft",
+    "version": "1.0.0",
+    "url": "/downloads/seo-evidence-draft.zip",
+    "sha256": "d50634ced1b92c0ee4bd5130368678cb17a8f17e7b51d672521d59e73098f8d8",
+    "bytes": 3767
+  },
+  {
+    "name": "seo-research",
+    "version": "1.0.0",
+    "url": "/downloads/seo-research.zip",
+    "sha256": "be1b4ec1572a14ebafcfe9ded75f08b5e147b7d9c35fc8872c56ef883cc12017",
+    "bytes": 3403
+  }
+]
