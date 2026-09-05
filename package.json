@@ -15,7 +15,9 @@
     "deploy": "npm run build && wrangler deploy",
     "deploy:dry": "npm run build && wrangler deploy --dry-run",
     "validate": "npm run build && npm run check && npm test && npm run deploy:dry",
-    "package:skills": "node scripts/package-skills.mjs"
+    "package:skills": "node scripts/package-skills.mjs",
+    "test:mcp": "vitest run test/mcp-acceptance.test.ts test/oauth-handoff.test.ts",
+    "acceptance:read-only": "node scripts/mcp-read-only-acceptance.mjs"
   },
   "dependencies": {
     "@modelcontextprotocol/server": "2.0.0",

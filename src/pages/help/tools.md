@@ -1,7 +1,7 @@
 ---
 layout: "../../layouts/HelpLayout.astro"
 title: "MCP tool reference"
-description: "The four tools, their inputs, and the saved research lifecycle."
+description: "The research tools, their inputs, and the saved research lifecycle."
 category: "Reference"
 icon: "\u2197"
 sources: []
@@ -10,6 +10,12 @@ sources: []
 ## Connection and access
 
 Server URL: `https://mcp.seoresearcher.ai/mcp`. Transport: Streamable HTTP. Permissions: `seo_research:read` and `seo_research:run`. OAuth is the default setup route. API-key access requires an appropriately scoped credential; a skill does not create one.
+
+## seo_research_connection
+
+No inputs. Reports the authenticated `organization_id`, existing `default_client_id` (or `null`), granted research `scopes`, and `metering_model`. Use this before listing jobs when you need to confirm which account is connected. These are account identifiers, not the name or email of the person signed in. A null workspace means none exists yet; the first explicitly requested research job can create it. A successful connection does not prove that research has completed or that unused capacity remains.
+
+This check does not start research or create a workspace. If the tool is missing after an update, refresh your client’s tool list or reconnect the existing connector.
 
 ## seo_research_start
 
@@ -49,7 +55,7 @@ Inputs: `job_id` and `view` (`summary`, `full`, or `evidence`; default `full`). 
 
 ## seo_research_list
 
-Inputs: `limit` (integer 1–100, default 20) and optional `cursor` (up to 500 characters). Use this to find recent saved jobs, recover a job ID, or test authenticated access without starting research.
+Inputs: `limit` (integer 1–100, default 20) and optional `cursor` (up to 500 characters). Use this to find recent saved jobs, recover a job ID, or test authenticated access without starting research. MCP list responses also include `connection` metadata identifying the authenticated account, even when the job list is empty.
 
 ## A reliable sequence
 

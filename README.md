@@ -19,11 +19,12 @@ https://mcp.seoresearcher.ai/mcp
 The first connection opens OAuth. After authorization, ask your agent:
 
 ```text
-Research “best CRM software” before we create this article.
+Check which SEO Researcher account is connected and list my existing jobs. Do not start research.
 ```
 
 The focused tool surface is:
 
+- `seo_research_connection` — connected organization, workspace, permissions, and metering model
 - `seo_research_start`
 - `seo_research_status`
 - `seo_research_get`
@@ -63,3 +64,7 @@ See [SECURITY.md](SECURITY.md). OAuth is preferred. Raw access tokens are never 
 ## License
 
 The public integration and deployment shell is available under the MIT License. Rankability's private research engine is not part of this repository.
+
+## Read-only MCP acceptance
+
+See [the acceptance runbook](docs/MCP-ACCEPTANCE.md). `npm run test:mcp` exercises the real MCP transport with mocked upstream responses, including 25 concurrent account-isolation checks. `npm run acceptance:read-only` runs bounded public checks; set `SEO_RESEARCHER_ACCESS_TOKEN` through your secret manager to also verify authenticated reads. Neither command starts research. Deploy the Rankability read-only connection repair before the companion gateway release.
