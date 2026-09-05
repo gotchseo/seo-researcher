@@ -9,6 +9,14 @@ const PRODUCT = "seo_researcher";
 const API_PREFIX = "/v1/research";
 const MAX_EVENT_BODY_BYTES = 16_384;
 const MAX_OAUTH_BODY_BYTES = 65_536;
+const connectionSchema = z.object({
+  connected: z.literal(true),
+  product: z.literal(PRODUCT),
+  organization_id: z.string().min(1),
+  default_client_id: z.string().nullable(),
+  metering_model: z.string(),
+  scopes: z.array(z.enum(["seo_research:read", "seo_research:run"])),
+});
 
 const telemetryEvents = new Set([
   "landing_page_viewed",
@@ -26,6 +34,7 @@ class UpstreamError extends Error {
     readonly status: number,
     readonly code: string,
     readonly payload: unknown,
+    readonly retryAfter?: string,
   ) {
     super(message);
   }
@@ -211,6 +220,7 @@ async function callAgentApi(
       response.status,
       String(nested.code || body.code || "upstream_error"),
       payload,
+      response.headers.get("retry-after") || undefined,
     );
   }
   return payload;
@@ -225,18 +235,34 @@ function toolResult(payload: unknown) {
 
 function toolError(error: unknown) {
   const known = error instanceof UpstreamError;
+  const upstream = known && error.payload && typeof error.payload === "object" ? error.payload as JsonRecord : {};
+  const upstreamError = upstream.error && typeof upstream.error === "object" ? upstream.error as JsonRecord : {};
+  const details = upstreamError.details && typeof upstreamError.details === "object" ? upstreamError.details as JsonRecord : {};
+  const pollSeconds = details.recommended_poll_seconds;
   const payload = {
     error: {
       code: known ? error.code : "internal_error",
       message: known ? error.message : "SEO research request failed.",
-      retryable: known ? error.status >= 500 || error.status === 429 : true,
+      retryable: known ? error.status >= 500 || error.status === 429 || error.code === "not_ready" : true,
+      ...(known && error.retryAfter ? { retry_after: error.retryAfter } : {}),
+      ...(typeof pollSeconds === "number" && Number.isFinite(pollSeconds) && pollSeconds > 0 ? { recommended_poll_seconds: pollSeconds } : {}),
     },
   };
   return { isError: true, ...toolResult(payload) };
 }
 
-function createSeoResearchServer(env: Env, request: Request) {
-  const server = new McpServer({ name: "SEO Researcher", version: "1.0.0" });
+function createSeoResearchServer(env: Env, request: Request, connection: unknown) {
+  const server = new McpServer({ name: "SEO Researcher", version: "1.1.0" });
+
+  server.registerTool(
+    "seo_research_connection",
+    {
+      description: "Check the connected SEO Researcher organization, default workspace, granted research permissions, and metering model. Does not start research or create a workspace. This verifies access, not research completion or available usage.",
+      inputSchema: {},
+      annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false },
+    },
+    async () => toolResult(connection),
+  );
 
   server.registerTool(
     "seo_research_start",
@@ -251,7 +277,7 @@ function createSeoResearchServer(env: Env, request: Request) {
         brand_domain: z.string().max(255).optional(),
         target_url: z.url().optional(),
         depth: z.enum(["standard", "deep"]).default("standard"),
-        idempotency_key: z.string().min(1).max(200).optional(),
+        idempotency_key: z.string().trim().min(1).max(180).optional(),
       },
     },
     async (input) => {
@@ -305,7 +331,13 @@ function createSeoResearchServer(env: Env, request: Request) {
       try {
         const query = new URLSearchParams({ limit: String(limit) });
         if (cursor) query.set("cursor", cursor);
-        return toolResult(await callAgentApi(env, request, `/seo-research/jobs?${query}`));
+        const payload = await callAgentApi(env, request, `/seo-research/jobs?${query}`);
+        if (!payload || typeof payload !== "object" || Array.isArray(payload)) {
+          throw new UpstreamError("The research service returned an invalid job list.", 502, "invalid_upstream_response", null);
+        }
+        // Keep account identity visible even for existing clients whose tool
+        // catalog predates seo_research_connection, including an empty history.
+        return toolResult({ ...payload, connection });
       } catch (error) { return toolError(error); }
     },
   );
@@ -460,18 +492,24 @@ async function handleMcp(request: Request, env: Env, ctx: ExecutionContext): Pro
   const id = requestId(request);
   const started = Date.now();
   const identityHash = await sha256Prefix(token);
+  let connection: unknown;
   try {
-    await callAgentApi(env, request, "/seo-research/connection");
+    connection = await callAgentApi(env, request, "/seo-research/connection");
+    const parsed = connectionSchema.safeParse(connection);
+    if (!parsed.success) throw new UpstreamError("The research service returned an invalid connection response.", 502, "invalid_upstream_response", null);
+    connection = parsed.data;
   } catch (error) {
     const known = error instanceof UpstreamError;
-    const response = json({ error: { code: known ? error.code : "unauthorized", message: known ? error.message : "Authentication failed." } }, { status: known ? error.status : 401 });
+    const response = json({ error: { code: known ? error.code : "service_unavailable", message: known ? error.message : "SEO Researcher is temporarily unavailable. Retry this request.", retryable: known ? error.status >= 500 || error.status === 429 : true } }, { status: known ? error.status : 503 });
     if (response.status === 401) response.headers.set("www-authenticate", `Bearer resource_metadata="${env.MCP_ORIGIN}/.well-known/oauth-protected-resource/mcp"`);
+    if (known && error.retryAfter) response.headers.set("retry-after", error.retryAfter);
     analyticsPoint(env, "mcp_auth_failed", { request, requestId: id, status: response.status, success: false, latencyMs: Date.now() - started, identityHash });
     return withCors(response, request);
   }
 
-  const handler = createMcpHandler(() => createSeoResearchServer(env, request), { route: "/mcp" });
+  const handler = createMcpHandler(() => createSeoResearchServer(env, request, connection), { route: "/mcp" });
   const response = await handler(request, env, ctx);
+  response.headers.set("cache-control", "no-store");
   analyticsPoint(env, "mcp_request_completed", { request, requestId: id, status: response.status, success: response.ok, latencyMs: Date.now() - started, identityHash });
   return withCors(response, request);
 }
