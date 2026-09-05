@@ -1,3 +1,4 @@
+import { oauthAuthorizationHandoff, oauthRequestBody } from "./oauth-handoff";
 import { McpServer } from "@modelcontextprotocol/server";
 import { createMcpHandler } from "agents/mcp/server";
 import { z } from "zod";
@@ -313,7 +314,6 @@ function createSeoResearchServer(env: Env, request: Request) {
 }
 
 function publicMcpUrl(env: Env): string { return `${env.MCP_ORIGIN}/mcp`; }
-function privateMcpUrl(env: Env): string { return `${env.RANKABILITY_APP_ORIGIN}/mcp`; }
 
 function protectedResourceMetadata(env: Env): Response {
   return json({
@@ -339,10 +339,6 @@ function authorizationServerMetadata(env: Env): Response {
   }, { headers: { "access-control-allow-origin": "*" } });
 }
 
-function rewritePublicResource(value: string, env: Env): string {
-  return value === publicMcpUrl(env) ? privateMcpUrl(env) : value;
-}
-
 function rewriteLocation(value: string, env: Env): string {
   if (!value.startsWith(env.RANKABILITY_APP_ORIGIN)) return value;
   const url = new URL(value);
@@ -354,28 +350,23 @@ function rewriteLocation(value: string, env: Env): string {
 
 async function proxyOAuth(request: Request, env: Env): Promise<Response> {
   const incoming = new URL(request.url);
-  const upstream = new URL(`${env.RANKABILITY_APP_ORIGIN}${incoming.pathname}${incoming.search}`);
-  if (upstream.searchParams.has("resource")) {
-    upstream.searchParams.set("resource", rewritePublicResource(upstream.searchParams.get("resource") || "", env));
+  if (incoming.pathname === "/oauth/authorize" && request.method === "GET") {
+    return oauthAuthorizationHandoff(incoming, env.RANKABILITY_APP_ORIGIN, publicMcpUrl(env));
   }
+  const upstream = new URL(`${env.RANKABILITY_APP_ORIGIN}${incoming.pathname}${incoming.search}`);
 
   const headers = new Headers(request.headers);
   headers.set("host", new URL(env.RANKABILITY_APP_ORIGIN).host);
   headers.set("x-forwarded-host", incoming.host);
   headers.set("x-seo-researcher-product", PRODUCT);
+  headers.delete("cookie");
   let body: BodyInit | undefined;
   if (request.method !== "GET" && request.method !== "HEAD") {
-    const contentType = request.headers.get("content-type") || "";
-    const contentLength = Number(request.headers.get("content-length") || "0");
-    if (contentLength > MAX_OAUTH_BODY_BYTES) return json({ error: "invalid_request", error_description: "OAuth request is too large." }, { status: 413 });
-    if (contentType.includes("application/x-www-form-urlencoded")) {
-      const raw = await request.text();
-      if (new TextEncoder().encode(raw).byteLength > MAX_OAUTH_BODY_BYTES) return json({ error: "invalid_request", error_description: "OAuth request is too large." }, { status: 413 });
-      const params = new URLSearchParams(raw);
-      if (params.has("resource")) params.set("resource", rewritePublicResource(params.get("resource") || "", env));
-      body = params.toString();
-    } else {
-      body = request.body || undefined;
+    try {
+      body = await oauthRequestBody(request, publicMcpUrl(env), MAX_OAUTH_BODY_BYTES);
+      headers.delete("content-length");
+    } catch (error) {
+      return json({error: "invalid_request", error_description: error instanceof RangeError ? "OAuth request is too large." : "Invalid OAuth request body or resource."}, {status: error instanceof RangeError ? 413 : 400});
     }
   }
 
@@ -383,6 +374,8 @@ async function proxyOAuth(request: Request, env: Env): Promise<Response> {
   const responseHeaders = new Headers(response.headers);
   const location = responseHeaders.get("location");
   if (location) responseHeaders.set("location", rewriteLocation(location, env));
+  responseHeaders.delete("set-cookie");
+  responseHeaders.set("cache-control", "no-store");
   responseHeaders.set("access-control-allow-origin", "*");
   responseHeaders.set("access-control-expose-headers", "location, www-authenticate");
   responseHeaders.set("cross-origin-resource-policy", "cross-origin");
