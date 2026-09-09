@@ -18,8 +18,12 @@ const schema = { '@context': 'https://schema.org', '@type': 'TechArticle', headl
   <title>{title} | SEO Researcher Help</title><meta name="description" content={description}/>
   <link rel="canonical" href={canonical}/><link rel="icon" href="/favicon.svg"/>
   <meta name="theme-color" content="#ffffff"/>
-  <meta property="og:title" content={title}/><meta property="og:description" content={description}/><meta property="og:type" content="article"/><meta property="og:url" content={canonical}/><meta property="og:image" content="https://seoresearcher.ai/og.svg"/>
-  <meta name="twitter:card" content="summary"/>
+  <meta property="og:title" content={title}/><meta property="og:description" content={description}/><meta property="og:type" content="article"/><meta property="og:url" content={canonical}/><meta property="og:image" content="https://seoresearcher.ai/og-seo-researcher-v1.png"/>
+  <meta property="og:image:type" content="image/png"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/>
+  <meta property="og:image:alt" content="SEO Researcher by Rankability. Give your AI agent the SEO research it’s missing."/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:image" content="https://seoresearcher.ai/og-seo-researcher-v1.png"/>
+  <meta name="twitter:image:alt" content="SEO Researcher by Rankability. Give your AI agent the SEO research it’s missing."/>
   <script is:inline type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g, '\\u003c')}/>
 </head>
 <body>
