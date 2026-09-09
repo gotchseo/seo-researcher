@@ -526,6 +526,7 @@ export default {
         analyticsPoint(env, "trial_checkout_started", { request, requestId: requestId(request), success: true, attribution: Object.fromEntries(url.searchParams) });
         const target = new URL(env.SIGNUP_URL);
         for (const [key, value] of url.searchParams) target.searchParams.set(key, value);
+        target.searchParams.set("product", PRODUCT);
         target.searchParams.set("source", "seoresearcher.ai");
         return Response.redirect(target, 302);
       }
