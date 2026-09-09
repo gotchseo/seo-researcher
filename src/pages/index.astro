@@ -82,19 +82,26 @@ const jsonLd = [
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content="https://seoresearcher.ai/og.svg" />
+    <meta property="og:image" content="https://seoresearcher.ai/og-seo-researcher-v1.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="SEO Researcher by Rankability. Give your AI agent the SEO research it’s missing. Competitors, gaps, and AI citations." />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content="https://seoresearcher.ai/og.svg" />
+    <meta name="twitter:image" content="https://seoresearcher.ai/og-seo-researcher-v1.png" />
+    <meta name="twitter:image:alt" content="SEO Researcher by Rankability. Give your AI agent the SEO research it’s missing. Competitors, gaps, and AI citations." />
     <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-header page-shell">
       <a class="brand-lockup" href="/" aria-label="SEO Researcher home"><span>SEO Researcher</span><small>By Rankability</small></a>
-      <a class="text-link" href="/help">Help center</a>
-      <a class="text-link" href={trialUrl} data-event="trial_cta_clicked" data-location="header">Start trial</a>
+      <nav class="header-nav" aria-label="Main navigation">
+        <a class="text-link" href="/help">Help center</a>
+        <a class="text-link" href={trialUrl} data-event="trial_cta_clicked" data-location="header">Start trial</a>
+      </nav>
     </header>
 
     <main id="main">
@@ -132,8 +139,8 @@ const jsonLd = [
         <div class="section-heading feature-heading">
           <p class="eyebrow">No new content workflow</p>
           <h2 id="how-title">Connect once. Keep working where you already work.</h2>
+          <p class="setup-guide"><a class="text-link" href="/help#connect">Choose your platform and follow the setup guide →</a></p>
         </div>
-        <p><a class="text-link" href="/help#connect">Choose your platform and follow the setup guide →</a></p>
         <ol class="steps">
           <li><span class="index">1</span><div><h3>Connect your agent</h3><p>Authorize SEO Researcher in Claude, Codex, Cursor, OpenClaw, or another MCP tool.</p></div></li>
           <li><span class="index">2</span><div><h3>Ask for research</h3><p>“Research ‘best CRM software’ before we create this article.”</p></div></li>
@@ -217,6 +224,9 @@ const jsonLd = [
 <style>
   .page-shell { width: 100%; max-width: 720px; margin-inline: auto; padding-inline: 24px; }
   .site-header { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-block: 28px; }
+  .header-nav { display: flex; align-items: center; gap: 24px; }
+  .setup-guide { margin: 0; }
+  .setup-guide .text-link { white-space: normal; line-height: 1.6; }
   .brand-lockup { display: flex; align-items: baseline; gap: 10px; min-width: 0; color: var(--navy); text-decoration: none; white-space: nowrap; }
   .brand-lockup > span { font-size: 16px; font-weight: 600; letter-spacing: -.01em; }
   .brand-lockup small { color: var(--navy-50); font-size: 12px; font-weight: 400; }
