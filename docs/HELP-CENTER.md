@@ -8,7 +8,7 @@ appropriate relative layout path for nested articles.
 Platform instructions must link to official documentation and distinguish
 documented support from successful SEO Researcher connection tests. Update the
 source-check date in the layout after reviewing all platform instructions.
-Keep known OAuth and trial-email limitations accurate; documentation does not
+Keep known OAuth and legacy-trial-email limitations accurate; documentation does not
 repair authentication or lifecycle-email routing.
 
 Skill sources live in `skills/<name>/SKILL.md`. `npm run build` packages the five

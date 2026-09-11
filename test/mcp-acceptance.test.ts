@@ -31,9 +31,9 @@ describe('read-only MCP acceptance through the real transport', () => {
   it('advertises the connection tool and keeps the 180-character retry-key limit', async () => {
     vi.stubGlobal('fetch', vi.fn(async () => Response.json(connection)));
     const {payload} = await rpc('tools/list');
-    expect(payload.result.tools.map((t: any) => t.name)).toEqual(['seo_research_connection','seo_research_start','seo_research_status','seo_research_get','seo_research_list']);
+    expect(payload.result.tools.map((t: any) => t.name)).toEqual(['seo_research_connection','seo_research_usage','seo_research_start','seo_research_status','seo_research_get','seo_research_list']);
     expect(payload.result.tools[0].annotations.readOnlyHint).toBe(true);
-    expect(payload.result.tools[1].inputSchema.properties.idempotency_key.maxLength).toBe(180);
+    expect(payload.result.tools[2].inputSchema.properties.idempotency_key.maxLength).toBe(180);
   });
   it('reports service interruption as retryable 503, not a login failure', async () => {
     vi.stubGlobal('fetch', vi.fn(async () => {throw new DOMException('fixture timeout','TimeoutError');}));
@@ -109,6 +109,11 @@ describe('read isolation and recovery', () => {
   it.each([['seo_research_status',404,'not_found'],['seo_research_get',409,'not_ready'],['seo_research_list',429,'rate_limited']])('preserves %s errors and polling guidance', async (name,status,code) => {
     vi.stubGlobal('fetch', vi.fn(async (url: string) => url.endsWith('/connection') ? Response.json(connection) : Response.json({error:{code,message:'Fixture failure',details:{recommended_poll_seconds:5,secret_fixture:'omit'}}},{status:Number(status),headers:{'retry-after':'15'}})));
     const {payload} = await rpc('tools/call',{name,arguments:{job_id:'11111111-1111-4111-8111-111111111111'}});
-    expect(payload.result.isError).toBe(true); expect(payload.result.structuredContent.error).toEqual({code,message:'Fixture failure',retryable:status !== 404,retry_after:'15',recommended_poll_seconds:5});
+    expect(payload.result.isError).toBe(true); expect(payload.result.structuredContent.error).toEqual({code,message:'Fixture failure',retryable:status !== 404,retry_after:'15',recommended_poll_seconds:5,details:{recommended_poll_seconds:5}});
+  });
+  it('returns a non-retryable allowance response with the secure upgrade action', async () => {
+    vi.stubGlobal('fetch', vi.fn(async (url: string) => url.endsWith('/connection') ? Response.json(connection) : Response.json({error:{code:'seo_research_allowance_exhausted',message:'Allowance exhausted',details:{reason:'allowance_exhausted',upgrade_url:'https://app.rankability.com/seo-researcher/billing',next_action:'Open billing.',usage:{remaining_units:0},secret_fixture:'omit'}}},{status:402})));
+    const {payload} = await rpc('tools/call',{name:'seo_research_start',arguments:{topic:'fixture'}});
+    expect(payload.result.structuredContent.error).toEqual({code:'seo_research_allowance_exhausted',message:'Allowance exhausted',retryable:false,details:{reason:'allowance_exhausted',upgrade_url:'https://app.rankability.com/seo-researcher/billing',next_action:'Open billing.',usage:{remaining_units:0}},next_action:'Open billing.',upgrade_url:'https://app.rankability.com/seo-researcher/billing'});
   });
 });

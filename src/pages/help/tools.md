@@ -17,6 +17,12 @@ No inputs. Reports the authenticated `organization_id`, existing `default_client
 
 This check does not start research or create a workspace. If the tool is missing after an update, refresh your client’s tool list or reconnect the existing connector.
 
+## seo_research_usage
+
+No inputs. Reports the current plan, included, used, reserved, remaining, and overage units, active concurrency, warning state, and secure billing URL. It is read-only and does not consume a research unit. Agents should call it before a large batch and after an allowance warning.
+
+If the allowance is exhausted, `seo_research_start` returns a non-retryable upgrade response with the same secure billing URL. Upgrading changes the connected account immediately; the MCP connection does not need to be reauthorized.
+
 ## seo_research_start
 
 Starts research and returns a saved job to follow. Research can consume your included usage and invoke research providers.
@@ -77,5 +83,6 @@ Base URL: `https://api.seoresearcher.ai`.
 | GET | `/v1/research` | List recent jobs |
 | GET | `/v1/research/{job_id}` | Read status |
 | GET | `/v1/research/{job_id}/result?view=summary` | Read results |
+| GET | `/v1/usage` | Read plan and usage |
 
 Use a scoped bearer credential in the Authorization header. Preserve idempotency with the `Idempotency-Key` header on retries. Never put credentials in URLs. These are API paths for integrations, not URLs to paste into an MCP server field.

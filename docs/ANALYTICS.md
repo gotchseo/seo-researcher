@@ -4,7 +4,7 @@ Every event carries `schema_version`, environment, request ID, surface, host, pa
 
 ## Acquisition funnel
 
-`landing_viewed` → `primary_cta_clicked` → `signup_started` → `checkout_started` → `trial_started` → `connection_verified` → `first_research_started` → `first_packet_retrieved` → `trial_converted`
+`landing_page_viewed` → `free_sample_cta_clicked` → `free_sample_signup_started` → `connection_verified` → `first_research_started` → `first_packet_retrieved` → `allowance_exhausted` → `paid_checkout_started` → `subscription_started`
 
 ## Embedded-use signals
 
@@ -12,9 +12,9 @@ Track active organizations, connected clients, research jobs, successful packets
 
 ## Required dashboards and alerts
 
-- Acquisition and 14-day trial funnel by source, directory, client, and billing interval.
+- Acquisition, free-sample activation, first packet, allowance exhaustion, and paid conversion by source, directory, and client.
 - Time to OAuth connection, first research, and first complete packet.
-- Day 1/3/7/14 usage and trial conversion cohorts.
+- Day 1/3/7/14 usage and free-to-paid conversion cohorts.
 - Weekly embedded research organizations and jobs per active organization.
 - Research quality, source availability, provider latency, failures, and cost per complete packet.
 - Alerts for auth failures, queue lag, completion-rate regression, source degradation, and abnormal per-organization use.

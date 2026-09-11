@@ -16,12 +16,13 @@ const connectionSchema = z.object({
   default_client_id: z.string().nullable(),
   metering_model: z.string(),
   scopes: z.array(z.enum(["seo_research:read", "seo_research:run"])),
+  usage: z.record(z.string(), z.unknown()).nullable().optional(),
 });
 
 const telemetryEvents = new Set([
   "landing_page_viewed",
   "pricing_viewed",
-  "trial_cta_clicked",
+  "free_sample_cta_clicked",
   "example_prompt_copied",
   "integration_docs_clicked",
 ]);
@@ -239,20 +240,34 @@ function toolError(error: unknown) {
   const upstreamError = upstream.error && typeof upstream.error === "object" ? upstream.error as JsonRecord : {};
   const details = upstreamError.details && typeof upstreamError.details === "object" ? upstreamError.details as JsonRecord : {};
   const pollSeconds = details.recommended_poll_seconds;
+  const safeDetails = {
+    ...(typeof details.reason === "string" ? { reason: details.reason } : {}),
+    ...(typeof details.current_status === "string" ? { current_status: details.current_status } : {}),
+    ...(typeof details.next_action === "string" ? { next_action: details.next_action } : {}),
+    ...(typeof details.upgrade_url === "string" ? { upgrade_url: details.upgrade_url } : {}),
+    ...(details.usage && typeof details.usage === "object" && !Array.isArray(details.usage) ? { usage: details.usage } : {}),
+    ...(typeof pollSeconds === "number" && Number.isFinite(pollSeconds) && pollSeconds > 0 ? { recommended_poll_seconds: pollSeconds } : {}),
+  };
+  const retryable = known
+    ? error.status >= 500 || error.status === 429 || error.code === "not_ready"
+    : true;
   const payload = {
     error: {
       code: known ? error.code : "internal_error",
       message: known ? error.message : "SEO research request failed.",
-      retryable: known ? error.status >= 500 || error.status === 429 || error.code === "not_ready" : true,
+      retryable,
       ...(known && error.retryAfter ? { retry_after: error.retryAfter } : {}),
       ...(typeof pollSeconds === "number" && Number.isFinite(pollSeconds) && pollSeconds > 0 ? { recommended_poll_seconds: pollSeconds } : {}),
+      ...(Object.keys(safeDetails).length ? { details: safeDetails } : {}),
+      ...(typeof details.next_action === "string" ? { next_action: details.next_action } : {}),
+      ...(typeof details.upgrade_url === "string" ? { upgrade_url: details.upgrade_url } : {}),
     },
   };
   return { isError: true, ...toolResult(payload) };
 }
 
 function createSeoResearchServer(env: Env, request: Request, connection: unknown) {
-  const server = new McpServer({ name: "SEO Researcher", version: "1.1.0" });
+  const server = new McpServer({ name: "SEO Researcher", version: "1.2.0" });
 
   server.registerTool(
     "seo_research_connection",
@@ -262,6 +277,19 @@ function createSeoResearchServer(env: Env, request: Request, connection: unknown
       annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false },
     },
     async () => toolResult(connection),
+  );
+
+  server.registerTool(
+    "seo_research_usage",
+    {
+      description: "Check the current SEO Researcher plan, included and remaining units, active concurrency, overage settings, warning state, and secure billing URL. This is read-only and does not consume research units.",
+      inputSchema: {},
+      annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false },
+    },
+    async () => {
+      try { return toolResult(await callAgentApi(env, request, "/seo-research/usage")); }
+      catch (error) { return toolError(error); }
+    },
   );
 
   server.registerTool(
@@ -415,6 +443,7 @@ async function proxyOAuth(request: Request, env: Env): Promise<Response> {
 }
 
 function mapRestPath(url: URL): string | null {
+  if (url.pathname === "/v1/usage") return `/seo-research/usage${url.search}`;
   if (url.pathname === API_PREFIX) return `/seo-research/jobs${url.search}`;
   const match = url.pathname.match(/^\/v1\/research\/([0-9a-f-]+)(\/result)?$/i);
   if (!match) return null;
@@ -523,7 +552,7 @@ export default {
       }
       if (url.pathname === "/events") return handleBrowserEvent(request, env);
       if (url.pathname === "/start") {
-        analyticsPoint(env, "trial_checkout_started", { request, requestId: requestId(request), success: true, attribution: Object.fromEntries(url.searchParams) });
+        analyticsPoint(env, "free_sample_signup_started", { request, requestId: requestId(request), success: true, attribution: Object.fromEntries(url.searchParams) });
         const target = new URL(env.SIGNUP_URL);
         for (const [key, value] of url.searchParams) target.searchParams.set(key, value);
         target.searchParams.set("product", PRODUCT);

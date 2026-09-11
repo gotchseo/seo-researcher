@@ -11,4 +11,4 @@ The repository is prepared for the MCP Registry and Agent Plugins-compatible mar
 7. Postman API Network using `openapi.yaml`; then evaluate RapidAPI.
 8. Build native templates for Zapier, Pipedream, n8n, Make, Composio, Arcade, and Toolhouse after real API usage reveals the highest-value automations.
 
-Use source-specific campaign parameters on every submission link. Analytics must distinguish listing impression/click, signup, OAuth connection, first successful packet, trial conversion, and retained weekly use by directory and client.
+Use source-specific campaign parameters on every submission link. Analytics must distinguish listing impression/click, free-sample signup, OAuth connection, first successful packet, allowance exhaustion, paid conversion, and retained weekly use by directory and client.

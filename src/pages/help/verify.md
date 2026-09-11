@@ -17,7 +17,7 @@ then call seo_research_list with limit 1. Do not start a research job.
 Report the actual tool result, including whether the list is empty.
 ```
 
-You should see four tools: `seo_research_start`, `seo_research_status`, `seo_research_get`, and `seo_research_list`. A client may prefix their names with the server name.
+You should see six tools: `seo_research_connection`, `seo_research_usage`, `seo_research_start`, `seo_research_status`, `seo_research_get`, and `seo_research_list`. A client may prefix their names with the server name.
 
 | Observation | Meaning | Next step |
 | --- | --- | --- |

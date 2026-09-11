@@ -53,7 +53,7 @@ npm run deploy
 
 Cloudflare serves the same Worker at `seoresearcher.ai`, `api.seoresearcher.ai`, and `mcp.seoresearcher.ai`. The Worker separates each host's surface, records edge analytics, and proxies only the dedicated SEO Researcher contract.
 
-The trial CTA hands customers to `https://app.seoresearcher.ai/start`. That
+The free-sample CTA hands customers to `https://app.seoresearcher.ai/start`. That
 branded host uses Rankability's existing account, billing, and research
 infrastructure without exposing the generic Rankability pricing funnel.
 
