@@ -568,7 +568,13 @@ export default {
         return proxyOAuth(request, env);
       }
       if (url.pathname === "/mcp") return handleMcp(request, env, ctx);
-      if (url.pathname === API_PREFIX || url.pathname.startsWith(`${API_PREFIX}/`)) return proxyRest(request, env);
+      if (
+        url.pathname === "/v1/usage" ||
+        url.pathname === API_PREFIX ||
+        url.pathname.startsWith(`${API_PREFIX}/`)
+      ) {
+        return proxyRest(request, env);
+      }
 
       if (url.hostname === new URL(env.API_ORIGIN).hostname) {
         return withCors(json({ name: "SEO Researcher API", version: "v1", docs: "https://seoresearcher.ai/help/tools" }), request);
