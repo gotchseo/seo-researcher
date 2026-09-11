@@ -47,6 +47,48 @@ describe('read-only MCP acceptance through the real transport', () => {
   });
 });
 
+describe('REST usage endpoint', () => {
+  it('rejects missing credentials before contacting the application', async () => {
+    const fetch = vi.fn();
+    vi.stubGlobal('fetch', fetch);
+
+    const response = await worker.fetch(
+      new Request('https://api.seoresearcher.ai/v1/usage'),
+      env,
+      ctx,
+    );
+
+    expect(response.status).toBe(401);
+    expect(await response.json()).toEqual({
+      error: {code: 'unauthorized', message: 'Bearer token required.'},
+    });
+    expect(fetch).not.toHaveBeenCalled();
+  });
+
+  it('proxies an authenticated usage read to the agent API', async () => {
+    const usage = {plan: 'starter', used_units: 2, included_units: 10};
+    const fetch = vi.fn(async (url: string, init: RequestInit) => {
+      expect(url).toBe('https://app.rankability.com/api/agent/v1/seo-research/usage');
+      expect(init.method).toBe('GET');
+      expect(new Headers(init.headers).get('authorization')).toBe('Bearer fixture-token');
+      return Response.json(usage);
+    });
+    vi.stubGlobal('fetch', fetch);
+
+    const response = await worker.fetch(
+      new Request('https://api.seoresearcher.ai/v1/usage', {
+        headers: {authorization: 'Bearer fixture-token'},
+      }),
+      env,
+      ctx,
+    );
+
+    expect(response.status).toBe(200);
+    expect(await response.json()).toEqual(usage);
+    expect(fetch).toHaveBeenCalledTimes(1);
+  });
+});
+
 describe('read isolation and recovery', () => {
   it('rejects a malformed successful connection rather than claiming access', async () => {
     vi.stubGlobal('fetch', vi.fn(async () => Response.json({connected: true})));
