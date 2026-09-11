@@ -12,7 +12,7 @@ sources: [{"title": "Claude remote connector setup", "url": "https://support.cla
 1. In Claude, open **Customize → Connectors**. Older interfaces put Connectors under Settings.
 2. Choose **+ → Add custom connector**. Enter **SEO Researcher** as the name and paste the URL below.
 3. Use OAuth when asked. Leave optional OAuth client ID and secret fields empty unless your administrator has provided a registered client.
-4. Add the connector, then choose **Connect** if authorization does not start automatically. Sign in with the email used for your SEO Researcher trial.
+4. Add the connector, then choose **Connect** if authorization does not start automatically. Sign in with the email used for your SEO Researcher account.
 5. Return to Claude and enable the connector for the conversation from the chat’s connector controls.
 
 ```text

@@ -46,7 +46,7 @@ export async function runAcceptance({fetcher = fetch, origin = 'https://mcp.seor
     const {response,payload,duration_ms} = await rpc('tools/list',{},token);
     assert.equal(response.status,200);
     const names = payload.result.tools.map(tool => tool.name);
-    for (const name of ['seo_research_connection','seo_research_list','seo_research_status','seo_research_get','seo_research_start']) assert.ok(names.includes(name));
+    for (const name of ['seo_research_connection','seo_research_usage','seo_research_list','seo_research_status','seo_research_get','seo_research_start']) assert.ok(names.includes(name));
     return {duration_ms};
   });
   await record('account_identity',async () => {

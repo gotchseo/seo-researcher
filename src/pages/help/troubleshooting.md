@@ -1,7 +1,7 @@
 ---
 layout: "../../layouts/HelpLayout.astro"
 title: "Fix connection & research problems"
-description: "Find the failed step without creating another trial or duplicate research job."
+description: "Find the failed step without creating another account or duplicate research job."
 category: "Getting started"
 icon: "\u2197"
 sources: []
@@ -33,6 +33,6 @@ Keep the returned job ID and ask for status on that same job. Follow `recommende
 
 For a `429`, respect the returned recovery time. For a temporary request failure, retry a bounded number of times; reuse the same idempotency key if a start response was lost. A terminal failed job is not a completed packet. Inspect its reason before intentionally starting a replacement. Empty or unavailable evidence is not proof that competitors or AI citations do not exist.
 
-## Trial active, but the email says Rankability
+## A legacy trial email says Rankability
 
-A wrong-product trial email was reported September 4, 2026. Separate SEO Researcher trial templates and a send-time product check were deployed September 5. Previously delivered emails cannot be recalled. An older Rankability email may describe a seven-day trial or tracking workflow, while SEO Researcher’s offer is fourteen days. Confirm your actual subscription dates in your checkout/account record and contact support about any mismatch. Do not start another checkout to repair an email or connector issue.
+A wrong-product trial email was reported September 4, 2026. Separate SEO Researcher trial templates and a send-time product check were deployed September 5 for the one legacy trial. Previously delivered emails cannot be recalled. New accounts receive three lifetime research units without a card. Confirm any legacy subscription dates in your account record and contact support about a mismatch. Do not create another account to repair an email or connector issue.
